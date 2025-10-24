@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oculus Caelorum Craft</title>
+<style>
+/* BODY & BACKGROUND */
+body {
+  margin:0;
+  padding:0;
+  background-image: url('https://ccdn.g-portal.com/blog_graphic_minecraft_kirsch_3_87fea89966.png');
+  background-repeat: repeat;
+  background-position: top center;
+  background-color:#111;
+  font-family:sans-serif;
+  color:#eee;
+}
+nav {
+  background: rgba(0,0,0,0.7);
+  padding: 10px 0;
+  text-align:center;
+  border-bottom:2px solid #0af;
+}
+nav a {
+  display:inline-block;
+  margin:0 12px;
+  padding:6px 12px;
+  color:#0af;
+  font-weight:bold;
+  text-decoration:none;
+  border-radius:6px;
+  transition: background 0.2s;
+}
+nav a:hover {
+  background: rgba(10,255,255,0.2);
+}
+nav a.active {
+  background: rgba(10,255,255,0.3);
+}
+.section {
+  padding: 12px;
+  margin: 12px auto;
+  border: 1px solid #0af;
+  border-radius:8px;
+  background: rgba(0,0,0,0.5);
+  max-width: 800px;
+}
+#adminBar {
+  display:none;
+  background:rgba(0,0,0,0.8);
+  color:#0af;
+  padding:4px;
+  font-size:14px;
+  text-align:right;
+}
+.smallBtn {
+  font-size:12px;
+  padding:2px 5px;
+  margin-left:4px;
+  cursor:pointer;
+}
+.modal {
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#222;
+  color:#eee;
+  padding:12px;
+  border:2px solid #0af;
+  z-index:100;
+}
+.modal input, .modal textarea {
+  width:100%;
+  margin:4px 0;
+  padding:4px;
+  background:#111;
+  color:#eee;
+  border:1px solid #0af;
+}
+
+h1,h2,h3{margin:0.2em 0;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="active">Home</a>
+  <a href="plugins.html">Plugins</a>
+  <a href="rules.html">Rules</a>
+  <a href="staff.html">Staff</a>
+  <a href="join.html">Join</a>
+  <button onclick="openLogin()" class="smallBtn">Admin Login</button>
+</nav>
+
+<!-- ADMIN BAR -->
+<div id="adminBar">
+  Signed in as <span id="adminRoleLabel">ADMIN</span>
+  <button onclick="openEditor()" class="smallBtn">Open Editor</button>
+  <button onclick="resetPage()" class="smallBtn">Reset Page</button>
+  <button onclick="logout()" class="smallBtn">Logout</button>
+</div>
+
+<!-- CONTENT -->
+<div class="section">
+  <h1 id="pageTitle"></h1>
+  <h2 id="pageSubtitle"></h2>
+  <p id="pageMeta"></p>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+  <h3>Admin Login</h3>
+  <input type="text" id="loginCode" placeholder="Enter code">
+  <div style="text-align:right;">
+    <button onclick="tryLogin()" class="smallBtn">Login</button>
+    <button onclick="closeLogin()" class="smallBtn">Cancel</button>
+  </div>
+</div>
+
+<!-- EDITOR MODAL -->
+<div id="adminModal" class="modal">
+  <h3>Edit Page</h3>
+  <label>Title</label>
+  <input type="text" id="editTitle">
+
+  <div id="editSubtitleRow">
+    <label>Subtitle</label>
+    <input type="text" id="editSubtitle">
+  </div>
+
+  <div id="editMetaRow">
+    <label>Meta</label>
+    <input type="text" id="editMeta">
+  </div>
+
+  <div style="text-align:right;margin-top:8px;">
+    <button onclick="saveEdits()" class="smallBtn">Save</button>
+    <button onclick="resetPage()" class="smallBtn">Reset Page</button>
+    <button onclick="closeAdminModal()" class="smallBtn">Cancel</button>
+  </div>
+</div>
+
+<script>
+/* CONFIG */
+const CODES={admin:"admin123",mod:"mod456"};
+const ROLE={NONE:"none",MOD:"mod",ADMIN:"admin"};
+let currentRole=ROLE.NONE;
+let currentPage=location.pathname.split("/").pop()||"index.html";
+let PAGE_KEY="oculus_page_"+currentPage;
+
+/* DEFAULT DATA */
+const DEFAULTS={
+  "index.html":{
+    title:"Welcome to Oculus Caelorum Craft",
+    subtitle:"A realm in the skies where your imagination builds the world.",
+    meta:"💠 Version: 1.21.1 | 💎 Type: Survival + Plugins"
+  }
+};
+
+/* UTIL */
+function loadPageData(){
+  const raw=localStorage.getItem(PAGE_KEY);
+  if(raw) try{return JSON.parse(raw);}catch(e){console.warn("bad LS")}
+  return DEFAULTS[currentPage]||{};
+}
+function savePageData(data){localStorage.setItem(PAGE_KEY,JSON.stringify(data));}
+
+/* RENDER */
+function render(){
+  const data=loadPageData();
+  if(currentPage==="index.html"){
+    document.getElementById("pageTitle").innerText=data.title||"";
+    document.getElementById("pageSubtitle").innerText=data.subtitle||"";
+    document.getElementById("pageMeta").innerText=data.meta||"";
+  }
+  toggleAdminUI();
+}
+
+/* LOGIN */
+function openLogin(){document.getElementById("loginModal").style.display="block";document.getElementById("loginCode").value="";}
+function closeLogin(){document.getElementById("loginModal").style.display="none";}
+function tryLogin(){
+  const code=document.getElementById("loginCode").value.trim();
+  if(code===CODES.admin){currentRole=ROLE.ADMIN;}
+  else if(code===CODES.mod){currentRole=ROLE.MOD;}
+  else{alert("Wrong code");return;}
+  localStorage.setItem("oculus_role",currentRole);
+  closeLogin();render();
+}
+function logout(){currentRole=ROLE.NONE;localStorage.removeItem("oculus_role");render();}
+function toggleAdminUI(){
+  const bar=document.getElementById("adminBar");
+  const role=localStorage.getItem("oculus_role")||ROLE.NONE;
+  currentRole=role;
+  bar.style.display=(role===ROLE.NONE?"none":"block");
+  if(role!==ROLE.NONE) document.getElementById("adminRoleLabel").innerText=role.toUpperCase();
+}
+
+/* EDITOR */
+function openEditor(){
+  document.getElementById("adminModal").style.display="block";
+  const data=loadPageData();
+  document.getElementById("editTitle").value=data.title||"";
+  if(currentPage==="index.html"){
+    document.getElementById("editSubtitleRow").style.display="block";
+    document.getElementById("editMetaRow").style.display="block";
+    document.getElementById("editSubtitle").value=data.subtitle||"";
+    document.getElementById("editMeta").value=data.meta||"";
+  }
+}
+
+function saveEdits(){
+  const data={title:document.getElementById("editTitle").value};
+  if(currentPage==="index.html"){
+    data.subtitle=document.getElementById("editSubtitle").value;
+    data.meta=document.getElementById("editMeta").value;
+  }
+  savePageData(data);
+  render();
+  closeAdminModal();
+}
+
+function resetPage(){
+  if(confirm("Reset this page to default?")){
+    localStorage.removeItem(PAGE_KEY);
+    render();
+    alert("Page reset to default!");
+  }
+}
+
+function closeAdminModal(){document.getElementById("adminModal").style.display="none";}
+
+/* INIT */
+render();
+</script>
+
+</body>
+</html>
