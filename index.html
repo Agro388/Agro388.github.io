@@ -5,57 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oculus Caelorum Craft</title>
 <style>
-body {
-  margin:0; padding:0;
-  background:#0a0a0a url('https://ccdn.g-portal.com/blog_graphic_minecraft_kirsch_3_87fea89966.png') repeat center center fixed;
-  background-size:auto;
-  color:#f5f5f5;
-  font-family:'Segoe UI', sans-serif;
-}
-nav {
-  background: rgba(255,105,180,0.25);
-  border-bottom:2px solid hotpink;
-  text-align:center;
-  padding:12px 0;
-  backdrop-filter: blur(6px);
-}
-nav a {
-  color:hotpink; text-decoration:none;
-  padding:8px 14px; margin:0 10px;
-  border-radius:8px; font-weight:bold;
-  transition:0.2s;
-}
-nav a:hover { background: rgba(255,105,180,0.3); }
-nav a.active { background: rgba(255,105,180,0.4); }
-nav button {
-  background:hotpink; color:#111; border:none;
-  border-radius:8px; padding:6px 10px; margin-left:10px;
-  font-weight:bold; cursor:pointer; transition:0.2s;
-}
-nav button:hover { background:#ffb6c1; }
-.section {
-  max-width:800px; margin:40px auto;
-  padding:20px; border:2px solid hotpink;
-  border-radius:12px; background:rgba(0,0,0,0.55);
-  box-shadow:0 0 10px rgba(255,105,180,0.3);
-}
-#adminBar { display:none; text-align:right; background:rgba(0,0,0,0.7); padding:6px; color:hotpink; }
-.smallBtn { font-size:13px; padding:4px 8px; background:hotpink; color:#111; border:none; border-radius:6px; margin-left:4px; cursor:pointer; }
-.smallBtn:hover { background:#ffb6c1; }
-.modal {
-  display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-  background:#111; color:#f5f5f5; border:2px solid hotpink; border-radius:12px;
-  padding:16px; z-index:100; width:90%; max-width:400px;
-  box-shadow:0 0 10px rgba(255,105,180,0.4);
-}
-.modal input { width:100%; padding:6px; margin:6px 0; background:#222; color:#f5f5f5; border:1px solid hotpink; border-radius:6px; }
-h1,h2,h3 { color:hotpink; text-shadow:0 0 6px rgba(255,105,180,0.4); margin:0.3em 0; }
-.buttonDiscord {
-  display:inline-block; background:hotpink; color:#111;
-  padding:12px 24px; border-radius:12px; text-decoration:none; font-weight:bold;
-  margin-top:20px; transition:0.2s;
-}
-.buttonDiscord:hover { background:#ffb6c1; }
+body {margin:0; padding:0; background:#0a0a0a url('https://ccdn.g-portal.com/blog_graphic_minecraft_kirsch_3_87fea89966.png') repeat center center fixed; background-size:auto; color:#f5f5f5; font-family:'Segoe UI', sans-serif;}
+nav {background: rgba(178,255,255,0.25); border-bottom:2px solid #B2FFFF; text-align:center; padding:12px 0; backdrop-filter: blur(6px);}
+nav a {color:#B2FFFF; text-decoration:none; padding:8px 14px; margin:0 10px; border-radius:8px; font-weight:bold; transition:0.2s;}
+nav a:hover { background: rgba(178,255,255,0.3);}
+nav a.active { background: rgba(178,255,255,0.4);}
+nav button {background:#B2FFFF; color:#111; border:none; border-radius:8px; padding:6px 10px; margin-left:10px; font-weight:bold; cursor:pointer; transition:0.2s;}
+nav button:hover { background: rgba(178,255,255,0.7);}
+.section {max-width:800px; margin:40px auto; padding:20px; border:2px solid #B2FFFF; border-radius:12px; background:rgba(0,0,0,0.55); box-shadow:0 0 10px rgba(178,255,255,0.3);}
+#adminBar { display:none; text-align:right; background:rgba(0,0,0,0.7); padding:6px; color:#B2FFFF; }
+.smallBtn { font-size:13px; padding:4px 8px; background:#B2FFFF; color:#111; border:none; border-radius:6px; margin-left:4px; cursor:pointer; }
+.smallBtn:hover { background: rgba(178,255,255,0.7);}
+.modal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#111; color:#f5f5f5; border:2px solid #B2FFFF; border-radius:12px; padding:16px; z-index:100; width:90%; max-width:400px; box-shadow:0 0 10px rgba(178,255,255,0.4);}
+.modal input { width:100%; padding:6px; margin:6px 0; background:#222; color:#f5f5f5; border:1px solid #B2FFFF; border-radius:6px; }
+h1,h2,h3 { color:#B2FFFF; text-shadow:0 0 6px rgba(178,255,255,0.4); margin:0.3em 0; }
+a.buttonDiscord { display:inline-block; background:#B2FFFF; color:#111; padding:12px 24px; border-radius:12px; text-decoration:none; font-weight:bold; margin-top:20px; transition:0.2s;}
+a.buttonDiscord:hover { background: rgba(178,255,255,0.7); }
 </style>
 </head>
 <body>
@@ -78,8 +43,7 @@ h1,h2,h3 { color:hotpink; text-shadow:0 0 6px rgba(255,105,180,0.4); margin:0.3e
 
 <div class="section">
   <h1 id="pageTitle">Welcome to Oculus Caelorum Craft</h1>
-  <h2 id="pageSubtitle">Build. Explore. Rise to the skies.</h2>
-  <p id="pageMeta">All server info is on our Discord!</p>
+  <p id="pageMeta">All server info is on our Discord.</p>
   <a href="https://discord.gg/DpwtJ7n684" target="_blank" class="buttonDiscord">Join our Discord 💬</a>
 </div>
 
@@ -95,8 +59,7 @@ h1,h2,h3 { color:hotpink; text-shadow:0 0 6px rgba(255,105,180,0.4); margin:0.3e
 <div id="adminModal" class="modal">
   <h3>Edit Page</h3>
   <label>Title:</label><input type="text" id="editTitle" value="Welcome to Oculus Caelorum Craft">
-  <label>Subtitle:</label><input type="text" id="editSubtitle" value="Build. Explore. Rise to the skies.">
-  <label>Meta Info:</label><input type="text" id="editMeta" value="All server info is on our Discord!">
+  <label>Meta Info:</label><input type="text" id="editMeta" value="All server info is on our Discord.">
   <div style="text-align:right;margin-top:8px;">
     <button onclick="saveEdits()" class="smallBtn">Save</button>
     <button onclick="resetPage()" class="smallBtn">Reset</button>
@@ -110,16 +73,17 @@ const ROLE={NONE:"none",MOD:"mod",ADMIN:"admin"};
 let currentRole=ROLE.NONE;
 let currentPage="index.html";
 let PAGE_KEY="oculus_page_"+currentPage;
+
 function loadPageData(){const raw=localStorage.getItem(PAGE_KEY);if(raw) try{return JSON.parse(raw);}catch(e){} return {};}
 function savePageData(data){localStorage.setItem(PAGE_KEY,JSON.stringify(data));}
-function render(){const data=loadPageData();document.getElementById("pageTitle").innerText=data.title||"Welcome to Oculus Caelorum Craft";document.getElementById("pageSubtitle").innerText=data.subtitle||"Build. Explore. Rise to the skies.";document.getElementById("pageMeta").innerText=data.meta||"All server info is on our Discord!";toggleAdminUI();}
+function render(){const data=loadPageData();document.getElementById("pageTitle").innerText=data.title||"Welcome to Oculus Caelorum Craft";document.getElementById("pageMeta").innerText=data.meta||"All server info is on our Discord.";toggleAdminUI();}
 function openLogin(){document.getElementById("loginModal").style.display="block";}
 function closeLogin(){document.getElementById("loginModal").style.display="none";}
 function tryLogin(){const code=document.getElementById("loginCode").value.trim();if(code===CODES.admin)currentRole=ROLE.ADMIN;else if(code===CODES.mod)currentRole=ROLE.MOD;else return alert("Wrong code!");localStorage.setItem("oculus_role",currentRole);closeLogin();render();}
 function logout(){currentRole=ROLE.NONE;localStorage.removeItem("oculus_role");render();}
 function toggleAdminUI(){const bar=document.getElementById("adminBar");const role=localStorage.getItem("oculus_role")||ROLE.NONE;currentRole=role;bar.style.display=(role===ROLE.NONE?"none":"block");if(role!==ROLE.NONE)document.getElementById("adminRoleLabel").innerText=role.toUpperCase();}
-function openEditor(){document.getElementById("adminModal").style.display="block";const data=loadPageData();document.getElementById("editTitle").value=data.title||"Welcome to Oculus Caelorum Craft";document.getElementById("editSubtitle").value=data.subtitle||"Build. Explore. Rise to the skies.";document.getElementById("editMeta").value=data.meta||"All server info is on our Discord!";}
-function saveEdits(){const data={title:document.getElementById("editTitle").value,subtitle:document.getElementById("editSubtitle").value,meta:document.getElementById("editMeta").value};savePageData(data);render();closeAdminModal();}
+function openEditor(){document.getElementById("adminModal").style.display="block";const data=loadPageData();document.getElementById("editTitle").value=data.title||"Welcome to Oculus Caelorum Craft";document.getElementById("editMeta").value=data.meta||"All server info is on our Discord.";}
+function saveEdits(){const data={title:document.getElementById("editTitle").value,meta:document.getElementById("editMeta").value};savePageData(data);render();closeAdminModal();}
 function resetPage(){if(confirm("Reset this page to default?")){localStorage.removeItem(PAGE_KEY);render();}}
 function closeAdminModal(){document.getElementById("adminModal").style.display="none";}
 render();
