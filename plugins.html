@@ -80,4 +80,13 @@ function openLogin(){document.getElementById("loginModal").style.display="block"
 function closeLogin(){document.getElementById("loginModal").style.display="none";}
 function tryLogin(){const code=document.getElementById("loginCode").value.trim();if(code===CODES.admin)currentRole=ROLE.ADMIN;else if(code===CODES.mod)currentRole=ROLE.MOD;else return alert("Wrong code!");localStorage.setItem("oculus_role",currentRole);closeLogin();render();}
 function logout(){currentRole=ROLE.NONE;localStorage.removeItem("oculus_role");render();}
-function toggleAdminUI(){const bar=document.getElementById("adminBar");const role=localStorage.getItem("oculus_role")||ROLE.NONE;currentRole=role;bar.style.display=(role===ROLE.NONE
+function toggleAdminUI(){const bar=document.getElementById("adminBar");const role=localStorage.getItem("oculus_role")||ROLE.NONE;currentRole=role;bar.style.display=(role===ROLE.NONE?"none":"block");if(role!==ROLE.NONE)document.getElementById("adminRoleLabel").innerText=role.toUpperCase();}
+function openEditor(){document.getElementById("adminModal").style.display="block";const data=loadPageData();document.getElementById("editTitle").value=data.title||"Server Plugins";document.getElementById("editMeta").value=data.meta||"All plugin info is available on our Discord.";}
+function saveEdits(){const data={title:document.getElementById("editTitle").value,meta:document.getElementById("editMeta").value};savePageData(data);render();closeAdminModal();}
+function resetPage(){if(confirm("Reset this page to default?")){localStorage.removeItem(PAGE_KEY);render();}}
+function closeAdminModal(){document.getElementById("adminModal").style.display="none";}
+render();
+</script>
+
+</body>
+</html>
