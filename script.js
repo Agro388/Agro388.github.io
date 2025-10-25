@@ -1,7 +1,5 @@
 // ==== Config ====
 const DISCORD_LINK = "https://discord.gg/DpwtJ7n684"; // <--- easy to change here
-const CODES = { admin: "admin123", mod: "mod456" };
-const ROLE = { NONE: "none", MOD: "mod", ADMIN: "admin" };
 
 // ==== Page Detection ====
 const currentPage = window.location.pathname.split("/").pop();
