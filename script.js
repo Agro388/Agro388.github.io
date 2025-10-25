@@ -1,4 +1,5 @@
 // ==== Config ====
+const DISCORD_LINK = "https://discord.gg/DpwtJ7n684"; // <--- easy to change here
 const CODES = { admin: "admin123", mod: "mod456" };
 const ROLE = { NONE: "none", MOD: "mod", ADMIN: "admin" };
 
@@ -27,6 +28,11 @@ function render() {
   const metaEl = document.getElementById("pageMeta");
   if (titleEl) titleEl.innerText = data.title || titleEl.innerText;
   if (metaEl) metaEl.innerText = data.meta || metaEl.innerText;
+
+  // auto-update Discord button if present
+  const discordBtn = document.querySelector(".buttonDiscord");
+  if (discordBtn) discordBtn.href = DISCORD_LINK;
+
   toggleAdminUI();
 }
 
