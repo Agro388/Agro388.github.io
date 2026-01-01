@@ -1,48 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oculus Caelorum Craft</title>
-<style>
-body {
-  margin:0; font-family:Arial, sans-serif; color:#f5f5f5; background:#0a0a0a url('242_20251027162212.jpg') no-repeat center center fixed;
-  background-size:cover;
-}
-nav {
-  display:flex; justify-content:center; gap:20px; padding:15px; background:#111; border-bottom:2px solid #B2FFFF;
-}
-nav a {
-  color:#B2FFFF; text-decoration:none; font-weight:bold; transition:0.2s;
-}
-nav a:hover { text-shadow:0 0 8px #B2FFFF; }
-.section {
-  text-align:center; padding:60px 20px;
-}
-h1,h2,h3 { color:#B2FFFF; text-shadow:0 0 8px rgba(178,255,255,0.5); }
-a.buttonDiscord {
-  display:inline-block; margin-top:20px; padding:12px 24px; border-radius:12px;
-  background:#B2FFFF; color:#111; font-weight:bold; text-decoration:none; transition:0.2s;
-}
-a.buttonDiscord:hover { background:rgba(178,255,255,0.7); }
-</style>
+  <meta charset="UTF-8" />
+  <title>Chrono SMP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --green: #39ff14;
+      --dark: #050505;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #0c160c, var(--dark));
+      color: white;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    nav a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 7rem 2rem 4rem;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    section.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .logo {
+      max-width: 95%;
+      width: 900px;
+      filter: drop-shadow(0 0 25px rgba(57,255,20,0.6));
+      animation: pulse 4s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { filter: drop-shadow(0 0 20px rgba(57,255,20,0.5)); }
+      50% { filter: drop-shadow(0 0 40px rgba(57,255,20,0.9)); }
+    }
+
+    h1, h2 {
+      color: var(--green);
+      letter-spacing: 2px;
+    }
+
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .btn.primary {
+      background: var(--green);
+      color: black;
+      box-shadow: 0 0 20px rgba(57,255,20,0.6);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 0 35px rgba(57,255,20,0.9);
+      transform: translateY(-2px);
+    }
+
+    .btn.secondary {
+      border: 2px solid var(--green);
+      color: var(--green);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(57,255,20,0.1);
+    }
+
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--green);
+      color: black;
+      padding: 0.8rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(57,255,20,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 200;
+    }
+
+    .back-home.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .back-home:hover {
+      box-shadow: 0 0 35px rgba(57,255,20,0.9);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      opacity: 0.5;
+    }
+  </style>
 </head>
+
 <body>
 
 <nav>
-  <a href="index.html">Home</a>
-  <a href="plugins.html">Plugins</a>
-  <a href="rules.html">Rules</a>
-  <a href="staff.html">Staff</a>
-  <a href="join.html">Join</a>
+  <a href="#home">Home</a>
+  <a href="#rules">Rules</a>
+  <a href="#play">Play</a>
 </nav>
 
-<div class="section">
-  <h1>Welcome to Oculus Caelorum Craft</h1>
-  <p>All server info and updates are available on our Discord.</p>
-  <a class="buttonDiscord" href="https://discord.gg/DpwtJ7n684" target="_blank" rel="noopener">Join our Discord 💬</a>
-</div>
+<!-- HOME -->
+<section id="home">
+  <img src="ChronoSMP_title.png" class="logo" alt="Chrono SMP">
 
-<script src="script.js"></script>
+  <div class="buttons">
+    <a href="#play" class="btn primary">Join Server</a>
+    <a href="#rules" class="btn secondary">Read Rules</a>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <h2>SERVER RULES</h2>
+
+  <p>
+    <strong>⚔️ PVP & GRIEF</strong><br>
+    PVP is <strong>ALLOWED</strong> ✅<br>
+    Griefing is <strong>ALLOWED</strong> ✅<br>
+    Stealing items is <strong>ALLOWED</strong> ✅<br>
+    Base raiding is <strong>ALLOWED</strong> ✅<br>
+    ➡️ If you don’t protect it, it’s not yours.
+  </p>
+
+  <p>
+    <strong>🎆 NO ITEM REFUNDS</strong><br>
+    Items are <strong>NOT refunded</strong><br>
+    Admins will NOT intervene
+  </p>
+
+  <p>
+    <strong>🚫 SERVER BEHAVIOR</strong><br>
+    ❌ Swearing<br>
+    ❌ Racism / homophobia<br>
+    ❌ Personal insults<br>
+    ❌ Toxic behavior<br>
+    ❌ Combat logging
+  </p>
+
+  <p>
+    <strong>🛑 CHEATS & BUG ABUSE</strong><br>
+    ❌ Hacked clients<br>
+    ❌ X-ray<br>
+    ❌ Duping<br>
+    ❌ Bug abuse<br>
+    ➡️ Report bugs to admins
+  </p>
+
+  <p>
+    <strong>👥 MULTI-ACCOUNTS</strong><br>
+    ❌ Alt accounts for advantage<br>
+    ❌ Ban evasion
+  </p>
+</section>
+
+<!-- PLAY -->
+<section id="play">
+  <h2>HOW TO PLAY</h2>
+  <p>
+    <strong>Version:</strong> 1.21.8<br>
+    <strong>IP:</strong> mc.chronomc.fun<br>
+    <strong>Mode:</strong> Survival SMP
+  </p>
+
+  <div class="buttons">
+    <a href="https://discord.gg/YOURINVITE" class="btn primary">Join Discord</a>
+  </div>
+</section>
+
+<a href="#home" class="back-home" id="backHome">← Home</a>
+
+<footer>
+  © Chrono SMP
+</footer>
+
+<script>
+  const sections = document.querySelectorAll("section");
+  const backHome = document.getElementById("backHome");
+
+  function showPage() {
+    const hash = window.location.hash || "#home";
+
+    sections.forEach(sec => sec.classList.remove("active"));
+
+    const active = document.querySelector(hash);
+    if (active) active.classList.add("active");
+
+    if (hash !== "#home") {
+      backHome.classList.add("show");
+    } else {
+      backHome.classList.remove("show");
+    }
+  }
+
+  window.addEventListener("hashchange", showPage);
+  window.addEventListener("load", showPage);
+</script>
+
 </body>
 </html>
