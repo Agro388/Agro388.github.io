@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChronoSMP</title>
+
+<!-- Minecraft Font -->
+<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+<style>
+/* Base styling */
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', sans-serif;
+  color: #b9ffbe;
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkDXIL8IRtun_ghFk0h48PJvcoT7QYcj-IVeWueQLlww&s=10') center center fixed;
+  background-size: cover;
+}
+
+/* Titles, footer, buttons: Minecraft font */
+h1,h2,h3,footer,.discord-button,.suggestion-form button {
+  font-family: 'Minecraft', sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 100px 20px 60px;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+  border-bottom: 3px solid #00aa66;
+}
+
+.discord-button {
+  display: inline-block;
+  padding: 14px 32px;
+  background: linear-gradient(145deg, #00aa66, #007744);
+  color: #e0f9e0;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  box-shadow: 0 0 18px rgba(0,170,102,0.6);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.discord-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0,170,102,0.9);
+}
+
+section {
+  max-width: 900px;
+  margin: 80px auto;
+  background: rgba(0,15,8,0.9);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0,170,102,0.35);
+}
+
+h2 {
+  text-align: center;
+  color: #00aa66;
+  border-bottom: 2px solid #00aa66;
+  padding-bottom: 10px;
+}
+
+.logo {
+  max-width: 900px;
+  width: 95%;
+  filter: drop-shadow(0 0 25px rgba(0,170,102,0.8));
+}
+
+/* Articles & gallery */
+.articles { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.article { flex:1 1 250px; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 12px; text-align:center; transition:0.2s; }
+.article:hover { transform: scale(1.05); box-shadow:0 0 25px rgba(0,170,102,0.7); }
+.gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:15px; }
+.gallery img,.article img { width:100%; border-radius:10px; border:2px solid #00aa66; }
+
+/* Suggestion form */
+.suggestion-form { display:flex; flex-direction: column; gap:15px; }
+.suggestion-form input,.suggestion-form textarea {
+  background: rgba(0,0,0,0.7);
+  border:2px solid #00aa66;
+  border-radius:10px;
+  padding:12px;
+  color:#b9ffbe;
+  font-size:1em;
+}
+.suggestion-form textarea { min-height:120px; resize: vertical; }
+.suggestion-form button {
+  align-self:center;
+  padding:14px 36px;
+  background: linear-gradient(145deg,#00aa66,#007744);
+  border:none;
+  border-radius:12px;
+  color:#e0f9e0;
+  font-size:1.1em;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(0,170,102,0.6);
+  transition:0.2s;
+}
+.suggestion-form button:hover {
+  transform:scale(1.08);
+  box-shadow:0 0 30px rgba(0,170,102,0.9);
+}
+
+/* Discord popup */
+#discord {
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(0,15,8,0.97);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+#discord .box {
+  background: rgba(0,15,8,0.95);
+  padding:50px;
+  border-radius:20px;
+  border:2px solid #00aa66;
+  box-shadow:0 0 35px rgba(0,170,102,0.7);
+}
+
+/* Success & warning popup */
+#success-popup, #warning-popup {
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(0,10,5,0.95);
+  z-index:10000;
+  align-items:center;
+  justify-content:center;
+}
+.popup-box {
+  background: rgba(0,15,8,0.95);
+  border:2px solid #00aa66;
+  border-radius:18px;
+  padding:40px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,170,102,0.8);
+  animation: popIn 0.35s ease;
+}
+.popup-box h3 { font-family:'Minecraft',sans-serif; color:#00ff99; margin-bottom:10px; }
+@keyframes popIn { from { transform: scale(0.7); opacity:0; } to { transform: scale(1); opacity:1; } }
+
+/* Confetti */
+#confetti { pointer-events:none; position:fixed; inset:0; z-index:10001; }
+.confetti-piece { position:absolute; opacity:0.9; animation:fall linear forwards; }
+@keyframes fall { from { transform:translateY(0) rotate(0deg);} to { transform:translateY(var(--fall-end,150vh)) rotate(720deg); } }
+
+/* Image protection */
+img {
+  -webkit-user-drag:none;
+  user-drag:none;
+  -webkit-touch-callout:none;
+}
+
+/* Footer */
+footer {
+  text-align:center;
+  padding:20px;
+  background: rgba(0,0,0,0.85);
+  border-top:2px solid #00aa66;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="ChronoSMP_title.png" class="logo" alt="ChronoSMP">
+  <span class="discord-button" onclick="openDiscord()">Join our Discord</span>
+</header>
+
+<section id="about">
+  <h2>About Our Server</h2>
+  <p>Welcome to <strong>ChronoSMP</strong></p>
+</section>
+
+<section id="rules">
+  <h2>Server Rules</h2>
+  <ol>
+    <li>
+      ⚔️ <strong>PVP & GRIEF</strong>
+      <ul>
+        <li>PVP is ALLOWED ✅</li>
+        <li>Griefing is ALLOWED ✅</li>
+        <li>Stealing items is ALLOWED ✅</li>
+        <li>Base raiding is ALLOWED ✅</li>
+        <li>➡️ If you don’t protect it, it’s not yours.</li>
+      </ul>
+    </li>
+    <li>
+      🎆 <strong>NO ITEM REFUNDS</strong>
+      <ul>
+        <li>If someone kills you, robs you, or griefs you:</li>
+        <li>➡️ items are NOT REFUNDED</li>
+        <li>➡️ it will NOT be handled via ticket or by an admin</li>
+      </ul>
+    </li>
+    <li>
+      🚫 <strong>SERVER BEHAVIOR</strong>
+      <ul>
+        <li>❌ Swearing</li>
+        <li>❌ Racism / homophobia</li>
+        <li>❌ Personal insults toward players</li>
+        <li>❌ Toxic behavior in chat</li>
+        <li>❌ Combat logging</li>
+      </ul>
+    </li>
+    <li>
+      🛑 <strong>CHEATS & BUG ABUSE</strong>
+      <ul>
+        <li>❌ Hacked clients</li>
+        <li>❌ X-ray</li>
+        <li>❌ Duping</li>
+        <li>❌ Bug abuse</li>
+        <li>➡️ Found a bug = report it to an admin</li>
+      </ul>
+    </li>
+    <li>
+      👥 <strong>MULTI-ACCOUNTS & ALT ACCOUNTS</strong>
+      <ul>
+        <li>❌ Multi-accounts for advantages</li>
+        <li>❌ Alt accounts to bypass a ban</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<section id="news">
+  <h2>Server News</h2>
+  <div class="articles">
+    <div class="article">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpuCP9FAP6JyMEjp2cFS11vZ9gv7Egp8cJS88U94znjQ&s=10">
+      <h3>📅 Season 2!</h3>
+      <p><strong>Season 2 begins on 6.1.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpuCP9FAP6JyMEjp2cFS11vZ9gv7Egp8cJS88U94znjQ&s=10">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpuCP9FAP6JyMEjp2cFS11vZ9gv7Egp8cJS88U94znjQ&s=10">
+  </div>
+</section>
+
+<section id="suggestions">
+  <h2>Suggestions</h2>
+  <form class="suggestion-form" onsubmit="submitSuggestion(event)" novalidate>
+    <input type="text" placeholder="Your Minecraft nickname">
+    <textarea placeholder="Your suggestion..."></textarea>
+    <button type="submit">Send Suggestion</button>
+  </form>
+</section>
+
+<!-- Discord popup -->
+<section id="discord">
+  <div class="box">
+    <h2>Discord</h2>
+    <p>Discord invite link will be provided later.</p>
+    <span class="discord-button" onclick="closeDiscord()">Back</span>
+  </div>
+</section>
+
+<!-- Success & warning popups -->
+<div id="success-popup">
+  <div class="popup-box">
+    <h3>✔ Suggestion Sent</h3>
+    <p>Thanks for helping improve ChronoSMP 💚</p>
+  </div>
+</div>
+
+<div id="warning-popup">
+  <div class="popup-box">
+    <h3>Warning</h3>
+    <p>Please fill in all fields before submitting.</p>
+  </div>
+</div>
+
+<div id="confetti"></div>
+
+<audio id="success-sound">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c8b2c6a2b.mp3">
+</audio>
+
+<footer>© 2026 Chrono SMP</footer>
+
+<script>
+  // Lock all images
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('draggable','false');
+    img.oncontextmenu = () => false;
+  });
+
+  // Discord functions
+  function openDiscord() {
+    document.getElementById("discord").style.display = "flex";
+    window.scrollTo(0,0);
+  }
+  function closeDiscord() {
+    document.getElementById("discord").style.display = "none";
+  }
+
+  // Popup timer
+  let popupTimer;
+
+  // Show warning
+  function showWarning(msg){
+    const warning = document.getElementById("warning-popup");
+    warning.querySelector("p").textContent = msg;
+    warning.style.display="flex";
+    setTimeout(()=>warning.style.display="none",4000);
+    warning.addEventListener("click",()=>warning.style.display="none");
+  }
+
+  // Suggestion submission
+  function submitSuggestion(e){
+    e.preventDefault();
+    const form=e.target;
+    const nick=form.querySelector('input').value.trim();
+    const suggestion=form.querySelector('textarea').value.trim();
+    
+    if(!nick || !suggestion){
+      showWarning("⚠ Please fill in all fields!");
+      return;
+    }
+
+    form.reset();
+    const popup=document.getElementById("success-popup");
+    popup.style.display="flex";
+    playSound();
+    spawnConfetti();
+
+    clearTimeout(popupTimer);
+    popupTimer=setTimeout(()=>{
+      popup.style.display="none";
+      document.getElementById("confetti").innerHTML="";
+    },7000);
+  }
+
+  // Click anywhere on popup to close
+  document.getElementById("success-popup").addEventListener("click",()=>{
+    const popup=document.getElementById("success-popup");
+    popup.style.display="none";
+    document.getElementById("confetti").innerHTML="";
+    clearTimeout(popupTimer);
+  });
+
+  // Sound
+  function playSound(){
+    const s=document.getElementById("success-sound");
+    s.currentTime=0;
+    s.play();
+  }
+
+  // Confetti
+  function spawnConfetti(){
+    const container=document.getElementById("confetti");
+    container.innerHTML="";
+    const total=200;
+    for(let i=0;i<total;i++){
+      const piece=document.createElement("div");
+      piece.className="confetti-piece";
+      piece.style.left=Math.random()*100+"vw";
+      piece.style.top=Math.random()*20-20+"vh";
+      const r=Math.floor(Math.random()*256);
+      const g=Math.floor(Math.random()*256);
+      const b=Math.floor(Math.random()*256);
+      piece.style.background=`rgb(${r},${g},${b})`;
+      piece.style.width=5+Math.random()*10+"px";
+      piece.style.height=10+Math.random()*15+"px";
+      const rot=Math.random()*360;
+      piece.style.transform=`rotate(${rot}deg)`;
+      const fallDistance=120+Math.random()*60;
+      piece.style.animation=`fall ${2+Math.random()*2}s linear forwards`;
+      piece.style.setProperty("--fall-end",fallDistance+"vh");
+      container.appendChild(piece);
+    }
+  }
+  //made with help of ChatGPT/Clanker cuz im a dummy//
+</script>
+
+</body>
+</html>
