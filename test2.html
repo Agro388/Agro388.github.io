@@ -14,8 +14,7 @@ body {
   margin: 0;
   font-family: 'Press Start 2P', sans-serif;
   color: #b9ffbe;
-  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkDXIL8IRtun_ghFk0h48PJvcoT7QYcj-IVeWueQLlww&s=10') center center fixed;
-  background-size: cover;
+  background: #000; /* changed to fully black background */
 }
 
 /* Titles, footer, buttons: Minecraft font */
@@ -24,6 +23,9 @@ h1,h2,h3,footer,.discord-button,.suggestion-form button {
 }
 
 header {
+  display: flex;
+  flex-direction: column; /* stack image and button vertically */
+  align-items: center;    /* center them horizontally */
   text-align: center;
   padding: 100px 20px 60px;
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9));
@@ -41,6 +43,7 @@ header {
   box-shadow: 0 0 18px rgba(0,170,102,0.6);
   cursor: pointer;
   transition: 0.2s;
+  margin-top: 20px; /* space below the title image */
 }
 
 .discord-button:hover {
@@ -68,6 +71,8 @@ h2 {
   max-width: 900px;
   width: 95%;
   filter: drop-shadow(0 0 25px rgba(0,170,102,0.8));
+  display: block; /* ensure it behaves as a block so button sits below */
+  margin: 0 auto 10px auto; /* center and add small bottom gap */
 }
 
 /* Articles & gallery */
