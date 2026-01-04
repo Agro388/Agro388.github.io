@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChronoSMP Spawn Plot Showcase</title>
+
+<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #0d0d0d;
+  color: #eee;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  max-width: 95%;
+  width: 900px;
+  filter: drop-shadow(0 0 25px rgba(57,255,20,0.6));
+  animation: pulse 4s infinite;
+  margin-top: 20px;
+}
+
+@keyframes pulse {
+  0%,100% { filter: drop-shadow(0 0 20px rgba(57,255,20,0.4)); }
+  50% { filter: drop-shadow(0 0 35px rgba(57,255,20,0.8)); }
+}
+
+svg, svg *:focus {
+  outline: none !important;
+}
+
+svg {
+  margin-top: 20px;
+  background: #1a1a1a;
+  border-radius: 12px;
+}
+
+.plot {
+  cursor: pointer;
+  transition: fill 0.25s, transform 0.2s, filter 0.2s;
+}
+.plot:hover {
+  filter: drop-shadow(0 0 6px rgba(57,255,20,0.6));
+}
+.plot.selected {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 10px rgba(57,255,20,1));
+}
+
+.wall { stroke:#555555; stroke-width:15; fill:none; }
+.gate { fill:#555555; stroke:#555555; cursor:pointer; }
+.road { stroke:none; width:12; }
+.river { stroke:#3399ff; stroke-width:9; fill:none; }
+.river1 { stroke:#3399ff; stroke-width:3; fill:none; }
+.river2 { stroke:#3399ff; stroke-width:5; fill:none; }
+.river3 { stroke:#3399ff; stroke-width:50; fill:none; }
+  
+.plot-number {
+  fill: #fff;
+  font-size: 10px;
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-weight: bold;
+}
+
+.bottom-panels {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  justify-content: center;
+}
+
+#infoPanel, #tutorialPanel, #legendPanel {
+  width: 200px;
+  background: #1b1b1b;
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid #444;
+}
+
+#tutorialPanel { height: 250px; overflow-y:auto; }
+
+.uiButton {
+  padding: 6px 10px;
+  margin-top: 6px;
+  background: #44aa44;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.uiButton.unclaim { background:#aa4444; }
+
+input, textarea {
+  background:#222;
+  color:#fff;
+  border:none;
+  padding:6px;
+  border-radius:4px;
+  width:190px;
+}
+
+.legend-item { display:flex; align-items:center; margin-bottom:5px; }
+.legend-color { width:20px; height:20px; margin-right:10px; border:1px solid #333; }
+
+/* Make text unselectable */
+svg text {
+  user-select: none;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<img src="ChronoSMP_title.png" class="logo">
+
+<svg id="map" width="700" height="700" viewBox="-350 -350 700 700">
+
+ <circle r="200" class="wall"/>
+ <circle r="200" class="road" fill="#333333"/>
+ <circle r="72.5" class="river1"/>
+ <circle r="125" class="river"/>
+
+  
+ <!-- Hub and gates -->
+  <circle class="path" id="hub" r="43" fill="#aa4444" stroke="#880000" stroke-width="3"/>
+  <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#fff">SPAWN</text>
+
+  <rect id="northGate" x="-15" y="-215" width="30" height="15" class="gate"/>
+  <text x="0" y="-207.5" text-anchor="middle" dominant-baseline="middle" fill="#fff">N</text>
+
+  <rect id="eastGate" x="200" y="-15" width="15" height="30" class="gate"/>
+  <text x="207.5" y="0" text-anchor="middle" dominant-baseline="middle" fill="#fff">E</text>
+
+  <rect id="southGate" x="-15" y="200" width="30" height="15" class="gate"/>
+  <text x="0" y="207.5" text-anchor="middle" dominant-baseline="middle" fill="#fff">S</text>
+
+  <rect id="westGate" x="-215" y="-15" width="15" height="30" class="gate"/>
+  <text x="-207.5" y="0" text-anchor="middle" dominant-baseline="middle" fill="#fff">W</text>
+</svg>
+
+<div class="bottom-panels">
+<div id="infoPanel">
+  <div id="plotInfo">Select a plot</div>
+  <input id="ownerInput" placeholder="Your player name"><br>
+  <button class="uiButton" id="claimBtn">Claim</button>
+  <button class="uiButton unclaim" id="unclaimBtn">Unclaim</button>
+</div>
+
+<div id="tutorialPanel">
+  <p><strong>Test website to show the spawn design idea.</strong></p>
+  <ul>
+    <li>Click a plot, hub, or gate to see info</li>
+    <li>Enter your name to claim a plot</li>
+    <li>You can unclaim your own plots</li>
+    <li>optional event/admin only plots</li>
+  </ul>
+</div>
+
+<div id="legendPanel">
+  <p><strong>Legend</strong></p>
+  <div class="legend-item"><div class="legend-color" style="background:#ffaa00"></div>Event plots</div>
+  <div class="legend-item"><div class="legend-color" style="background:#44aa44"></div>Inner plots</div>
+  <div class="legend-item"><div class="legend-color" style="background:#4488aa"></div>Outer plots</div>
+  <div class="legend-item"><div class="legend-color" style="background:#aa44ff"></div>Claimed plot</div>
+  <div class="legend-item"><div class="legend-color" style="background:#aa4444"></div>Spawn Hub</div>
+  <div class="legend-item"><div class="legend-color" style="background:#555555"></div>Gate / Wall</div>
+  <div class="legend-item"><div class="legend-color" style="background:#333333"></div>Road</div>
+  <div class="legend-item"><div class="legend-color" style="background:#3399ff"></div>River</div>
+</div>
+</div>
+<button class="uiButton" id="changeRoadBtn">Change Road Color</button>
+<button class="uiButton" id="toggleInnermostBtn">Toggle Event Plots(optional/event only/crate shops plots)</button>
+
+<script>
+// --- Map data ---
+const mapData = {
+  innerPlots: {
+    color: '#44aa44',
+    rInner: 75,
+    rOuter: 120,
+    plots: 40,
+    info: Array(40).fill({ prize: "1200$", description: "Inner ring plot" })
+  },
+  outerPlots: {
+    color: '#4488aa',
+    rInner: 130,
+    rOuter: 200,
+    plots: 60,
+    info: Array(60).fill({ prize: "800$", description: "Outer ring plot" })
+  },
+  specials: {
+    hub: { name: "Spawn Hub", prize: "undefined", description: "Main spawn area" },
+    northGate: { name: "North Gate", prize: "undefined", description: "Leads to north region" },
+    eastGate: { name: "East Gate", prize: "undefined", description: "Leads to east region" },
+    southGate: { name: "South Gate", prize: "undefined", description: "Leads to south region" },
+    westGate: { name: "West Gate", prize: "undefined", description: "Leads to west region" }
+  }
+};
+
+const svgEl = document.getElementById('map');
+let plots = [];
+let innermostPlots = [];
+let selectedPlot = null;
+
+// --- Plot slice function (already with gaps) ---
+function createPlotSlice(plotNum,totalPlots,rInner,rOuter,color){
+  const theta = 2*Math.PI/totalPlots;
+  const startAngle = theta*(plotNum-1) - Math.PI/2;
+  const endAngle = theta*plotNum - Math.PI/2 - 0.005;
+
+  const x1 = rInner*Math.cos(startAngle), y1 = rInner*Math.sin(startAngle);
+  const x2 = rOuter*Math.cos(startAngle), y2 = rOuter*Math.sin(startAngle);
+  const x3 = rOuter*Math.cos(endAngle), y3 = rOuter*Math.sin(endAngle);
+  const x4 = rInner*Math.cos(endAngle), y4 = rInner*Math.sin(endAngle);
+
+  const d = `M ${x1} ${y1} L ${x2} ${y2} A ${rOuter} ${rOuter} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${rInner} ${rInner} 0 0 0 ${x1} ${y1} Z`;
+  const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d',d);
+  path.setAttribute('fill',color);
+  path.setAttribute('class','plot');
+  svgEl.appendChild(path);
+
+  const midAngle = (startAngle + endAngle)/2;
+  const rMid = (rInner + rOuter)/2;
+  const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x', rMid*Math.cos(midAngle));
+  text.setAttribute('y', rMid*Math.sin(midAngle));
+  text.setAttribute('class','plot-number');
+  text.textContent = plotNum;
+  svgEl.appendChild(text);
+
+  const plotObj = {path, number: plotNum, owner: null, baseColor: color, text};
+  path.onclick = () => toggleSelectPlot(plotObj);
+  plots.push(plotObj);
+}
+
+// --- Create all inner/outer plots ---
+for(let i=1;i<=mapData.innerPlots.plots;i++)
+  createPlotSlice(i,mapData.innerPlots.plots,mapData.innerPlots.rInner,mapData.innerPlots.rOuter,mapData.innerPlots.color);
+for(let i=1;i<=mapData.outerPlots.plots;i++)
+  createPlotSlice(i+mapData.innerPlots.plots,mapData.outerPlots.plots,mapData.outerPlots.rInner,mapData.outerPlots.rOuter,mapData.outerPlots.color);
+
+// --- Innermost/Event plots ---
+const innermostData = {
+  plots: 8, rInner: 46, rOuter: 70, color: '#ffaa00',
+  info: Array(8).fill({prize:"3000$", description:"Event plot"})
+};
+
+let innermostVisible = true;
+
+function createInnermostSlice(plotNum,totalPlots,rInner,rOuter,color){
+  const theta = 2*Math.PI/totalPlots;
+  const startAngle = theta*(plotNum-1) - Math.PI/2;
+  const endAngle = theta*plotNum - Math.PI/2 - 0.01;
+
+  const x1 = rInner*Math.cos(startAngle), y1 = rInner*Math.sin(startAngle);
+  const x2 = rOuter*Math.cos(startAngle), y2 = rOuter*Math.sin(startAngle);
+  const x3 = rOuter*Math.cos(endAngle), y3 = rOuter*Math.sin(endAngle);
+  const x4 = rInner*Math.cos(endAngle), y4 = rInner*Math.sin(endAngle);
+
+  const d = `M ${x1} ${y1} L ${x2} ${y2} A ${rOuter} ${rOuter} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${rInner} ${rInner} 0 0 0 ${x1} ${y1} Z`;
+  const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d',d);
+  path.setAttribute('fill',color);
+  path.setAttribute('class','plot');
+  svgEl.appendChild(path);
+
+  const midAngle = (startAngle + endAngle)/2;
+  const rMid = (rInner + rOuter)/2;
+  const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x', rMid*Math.cos(midAngle));
+  text.setAttribute('y', rMid*Math.sin(midAngle));
+  text.setAttribute('class','plot-number');
+  text.textContent = plotNum;
+  svgEl.appendChild(text);
+
+  const plotObj = {path, number: plotNum, owner: null, baseColor: color, text};
+  path.onclick = ()=>toggleInnermostPlot(plotObj);
+  innermostPlots.push(plotObj);
+}
+
+for(let i=1;i<=innermostData.plots;i++)
+  createInnermostSlice(i, innermostData.plots, innermostData.rInner, innermostData.rOuter, innermostData.color);
+
+function toggleInnermostPlot(plot){
+  if(selectedPlot===plot){
+    plot.path.classList.remove('selected');
+    selectedPlot=null;
+    document.getElementById('plotInfo').textContent="Select a plot";
+    return;
+  }
+  plots.forEach(p=>p.path.classList.remove('selected'));
+  innermostPlots.forEach(p=>p.path.classList.remove('selected'));
+  plot.path.classList.add('selected');
+  selectedPlot = plot;
+
+  const info = innermostData.info[plot.number-1];
+  document.getElementById('plotInfo').innerHTML=`
+    Event Plot #${plot.number}<br>
+    Description: ${info.description}<br>
+    Owner: ${'Admin'}
+  `;
+}
+
+document.getElementById('toggleInnermostBtn').onclick = ()=>{
+  innermostVisible = !innermostVisible;
+  innermostPlots.forEach(p=>{
+    p.path.style.display = innermostVisible ? 'block' : 'none';
+    p.text.style.display = innermostVisible ? 'block' : 'none';
+  });
+};
+
+// --- Plot selection ---
+function toggleSelectPlot(plot){
+  if(selectedPlot===plot){
+    plot.path.classList.remove('selected');
+    selectedPlot=null;
+    document.getElementById('plotInfo').textContent="Select a plot";
+    return;
+  }
+  plots.forEach(p=>p.path.classList.remove('selected'));
+  innermostPlots.forEach(p=>p.path.classList.remove('selected'));
+  plot.path.classList.add('selected');
+  selectedPlot=plot;
+
+  const plotNum = plot.number;
+  let plotInfo;
+  if(plotNum <= mapData.innerPlots.plots) plotInfo=mapData.innerPlots.info[plotNum-1];
+  else plotInfo=mapData.outerPlots.info[plotNum - mapData.innerPlots.plots -1];
+
+  document.getElementById('plotInfo').innerHTML=`
+    Plot #${plotNum}<br>
+    Prize: ${plotInfo.prize}<br>
+    Description: ${plotInfo.description}<br>
+    Owner: ${plot.owner||'None'}
+  `;
+}
+
+// --- Deselect clicking outside ---
+svgEl.onclick=(e)=>{
+  if(e.target.tagName==='svg'){
+    plots.forEach(p=>p.path.classList.remove('selected'));
+    innermostPlots.forEach(p=>p.path.classList.remove('selected'));
+    selectedPlot=null;
+    document.getElementById('plotInfo').textContent="Select a plot";
+  }
+};
+
+// --- Hub/Gates selection ---
+document.getElementById('hub').onclick = ()=>selectSpecial('hub');
+document.getElementById('northGate').onclick = ()=>selectSpecial('northGate');
+document.getElementById('eastGate').onclick = ()=>selectSpecial('eastGate');
+document.getElementById('southGate').onclick = ()=>selectSpecial('southGate');
+document.getElementById('westGate').onclick = ()=>selectSpecial('westGate');
+
+function selectSpecial(id){
+  selectedPlot = null; // deselect any plot
+  const data = mapData.specials[id];
+  document.getElementById('plotInfo').innerHTML=`
+    ${data.name}<br>
+    Description: ${data.description}
+  `;
+}
+
+// --- Claim/Unclaim ---
+document.getElementById('claimBtn').onclick=()=>{
+  if(!selectedPlot) return;
+  const name=document.getElementById('ownerInput').value.trim();
+  if(!name) return;
+  selectedPlot.owner=name;
+  selectedPlot.path.setAttribute('fill','#aa44ff');
+};
+document.getElementById('unclaimBtn').onclick=()=>{
+  if(!selectedPlot || !selectedPlot.owner) return;
+  const name=document.getElementById('ownerInput').value.trim();
+  if(selectedPlot.owner===name){
+    selectedPlot.owner=null;
+    selectedPlot.path.setAttribute('fill',selectedPlot.baseColor);
+  } else { alert("You can only unclaim your own plot"); }
+};
+  //road color toggle button
+  let roadYellow = false; // track road state
+
+document.getElementById('changeRoadBtn').onclick = () => {
+  const roads = svgEl.querySelectorAll('.road');
+  roadYellow = !roadYellow; // toggle state
+  const newColor = roadYellow ? '#ffff33' : '#333333';
+  roads.forEach(r => r.setAttribute('fill', newColor));
+
+  // update legend
+  const legendRoad = document.querySelector('.legend-color[style*="background:#333333"]');
+  if(legendRoad) legendRoad.style.background = newColor;
+ // update the legend box for roads
+  document.querySelectorAll('.legend-item').forEach(item => {
+    if(item.textContent.includes('Road')) { 
+      item.querySelector('.legend-color').style.background = newColor;
+    }
+  });
+
+  // update the button color
+  changeRoadBtn.style.background = roadYellow ? '#ffff33' : '#333333';
+  changeRoadBtn.style.color = roadYellow ? '#000000' : '#ffffff'; // optional: adjust text for contrast
+};
+
+  const toggleInnermostBtn = document.getElementById('toggleInnermostBtn');
+
+
+toggleInnermostBtn.onclick = () => {
+  innermostVisible = !innermostVisible;
+
+  // Deselect any currently selected innermost plot
+  if (selectedPlot && innermostPlots.includes(selectedPlot)) {
+    selectedPlot.path.classList.remove('selected');
+    selectedPlot = null;
+    document.getElementById('plotInfo').textContent = "Select a plot";
+  }
+
+  // Toggle visibility of only innermost/event plots
+  innermostPlots.forEach(p => {
+    p.path.style.visibility = innermostVisible ? 'visible' : 'hidden';
+    p.text.style.visibility = innermostVisible ? 'visible' : 'hidden';
+  });
+
+  // Toggle button color to match plots
+  if (innermostVisible) {
+    toggleInnermostBtn.style.background = '#ffaa00'; // event plots color
+    toggleInnermostBtn.style.color = '#000';         // text contrast
+  } else {
+    toggleInnermostBtn.style.background = '#555555'; // off state
+    toggleInnermostBtn.style.color = '#fff';
+  }
+
+  // Update legend color for event plots dynamically
+ // const legendEvent = document.querySelector('.legend-item .legend-color[style*="#ffaa00"]');
+  //if (legendEvent) legendEvent.style.background = innermostVisible ? '#ffaa00' : '#555555';
+};
+  
+</script>
+</body>
+</html>
