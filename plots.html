@@ -6,7 +6,9 @@
 <title>ChronoSMP Spawn Plot Showcase</title>
 
 <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
-
+<button class="floating-back" onclick="window.location.href='hub.html'">
+  ⬅ Hub
+</button>
 <style>
 body {
   margin: 0;
@@ -15,6 +17,29 @@ body {
   font-family: Arial, sans-serif;
 }
 
+  .floating-back {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  padding: 10px 18px;
+  background: linear-gradient(145deg, #00aa66, #007744);
+  color: #e0f9e0;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: 0 0 18px rgba(0,170,102,0.6);
+  z-index: 9999;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.floating-back:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0,170,102,0.9);
+}
+  
 .container {
   display: flex;
   flex-direction: column;
@@ -102,6 +127,8 @@ svg {
 }
 .uiButton.unclaim { background:#aa4444; }
 
+  
+  
 input, textarea {
   background:#222;
   color:#fff;
