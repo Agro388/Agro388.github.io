@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <title>Chrono SMP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<button class="floating-back" onclick="window.location.href='hub.html'">
+  ⬅ Hub
+</button>
   <style>
     :root {
       --green: #39ff14;
@@ -45,7 +47,28 @@
     nav a:hover {
       opacity: 1;
     }
+  .floating-back {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
 
+  padding: 10px 18px;
+  background: linear-gradient(145deg, #00aa66, #007744);
+  color: #e0f9e0;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: 0 0 18px rgba(0,170,102,0.6);
+  z-index: 9999;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.floating-back:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0,170,102,0.9);
+}
     section {
       min-height: 100vh;
       padding: 7rem 2rem 4rem;
