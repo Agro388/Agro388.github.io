@@ -93,6 +93,7 @@
       justify-content: center;
     }
 
+    
     .btn {
       padding: 0.9rem 1.8rem;
       border-radius: 999px;
@@ -115,6 +116,8 @@
     .btn.secondary {
       border: 2px solid var(--green);
       color: var(--green);
+      display: inline-block;
+      width: auto;
     }
 
     .btn.secondary:hover {
@@ -148,11 +151,6 @@
       transform: translateY(-2px);
     }
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      opacity: 0.5;
-    }
   </style>
 </head>
 
@@ -211,7 +209,7 @@
     ❌ Ban evasion
   </p>
 </section>
-<div>
+<div class="buttons">
     <a href="page.html" class="btn secondary">Page 1</a>
     <a href="test2.html" class="btn secondary">Page 2</a>
     <a href="plots.html" class="btn secondary">Plots</a>
@@ -237,10 +235,6 @@
   </p>
 </section>
 <a href="#home" class="back-home" id="backHome">← Home</a>
-
-<footer>
-  © Chrono SMP
-</footer>
 
 <script>
   const sections = document.querySelectorAll("section");
