@@ -272,7 +272,40 @@ footer {
     <span class="discord-button" onclick="closeDiscord()">Back</span>
   </div>
 </section>
+<div class="back-wrapper">
+  <button class="back-btn" onclick="window.location.href='hub.html'">⬅ Back to hub</button>
+</div>
 
+<style>
+  .back-btn {
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(145deg, #00aa66, #007744);
+    color: #e0f9e0;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1em;
+    box-shadow: 0 0 18px rgba(0,170,102,0.6);
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 18px;
+    margin-bottom:20px;
+  }
+
+  .back-btn:hover {
+    opacity: 0.85;
+  }
+ .back-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+</style>
 <!-- Success & warning popups -->
 <div id="success-popup">
   <div class="popup-box">
@@ -293,7 +326,6 @@ footer {
 <audio id="success-sound">
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c8b2c6a2b.mp3">
 </audio>
-
 <footer>© 2026 Chrono SMP</footer>
 
 <script>
