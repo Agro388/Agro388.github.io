@@ -59,11 +59,14 @@
         border: 1px solid #444;
         padding: 0.3rem;
     }
+
+    /* DENIED POPUP */
     #deniedPopup {
         display: none;
         position: fixed;
         top: 0; left: 0;
-        width: 100%; height: 100%;
+        width: 100%;
+        height: 100vh;
         background: rgba(0,0,0,0.85);
         color: #ff5555;
         font-family: 'Courier New', monospace;
@@ -88,6 +91,40 @@
         cursor: pointer;
     }
     #deniedPopupContent button:hover { background-color: #333; }
+
+    /* WARNING PAGE */
+    #warningPage {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #0b0b0f;
+        color: #ff5555;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    /* RESET WARNING POPUP */
+    #resetPopup {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(11,11,15,0.95);
+        color: #ff5555;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 3000;
+        text-align: center;
+        padding: 2rem;
+    }
 </style>
 <script>
 let attempts = 0;
@@ -146,7 +183,6 @@ window.onload = () => showPage('ab014');
     <a href="#" onclick="showPage('redacted')">AB-020</a>
     <a href="#" onclick="showPage('redacted')">AB-021</a>
     <a href="#" onclick="showPage('redacted')">AB-022</a>
-  
 </nav>
 
 <!-- AB-016 Page -->
@@ -237,13 +273,11 @@ function checkAb016AppearancePassword() {
     ab016AppearanceAttempts++;
 
     if(input === ab016AppearancePassword) {
-        // Correct password: show content and hide form
         document.getElementById('ab016AppearanceContent').style.display = 'block';
         form.style.display = 'none';
     } else {
         if(ab016AppearanceAttempts >= maxAb016AppearanceAttempts) {
             showDeniedPopup("Access Blocked. Local authorities have been notified.");
-            // Disable the input and button permanently
             const elements = form.querySelectorAll('input, button');
             elements.forEach(el => el.disabled = true);
             form.querySelector('input').style.opacity = 0.5;
@@ -252,7 +286,7 @@ function checkAb016AppearancePassword() {
             showDeniedPopup("Access Denied. Attempt " + ab016AppearanceAttempts + " of " + maxAb016AppearanceAttempts);
         }
     }
-    return false; // prevent form submission
+    return false;
 }
 </script>
 
@@ -287,7 +321,6 @@ function checkAb016AppearancePassword() {
 <li>Predatory cognition (threat prediction)</li>
 <li>Stellar Howl: wave disrupts powers/tech (nerfed if unstable)</li>
 <li>Powers evolve mid-conflict to adapt to threats</li>
-<li>Mental strain and inefficiency occur if Stellar Form is used without recognition</li>
 </ul></section>
 
 <section>
@@ -321,13 +354,11 @@ function checkAb016AcceptancePassword() {
     ab016AcceptanceAttempts++;
 
     if(input === ab016AcceptancePassword) {
-        // Correct password: show content and hide form
         document.getElementById('ab016AcceptanceContent').style.display = 'block';
         form.style.display = 'none';
     } else {
         if(ab016AcceptanceAttempts >= maxAb016AcceptanceAttempts) {
             showDeniedPopup("Access Blocked. Local authorities have been notified.");
-            // Disable the input and button permanently
             const elements = form.querySelectorAll('input, button');
             elements.forEach(el => el.disabled = true);
             form.querySelector('input').style.opacity = 0.5;
@@ -336,7 +367,7 @@ function checkAb016AcceptancePassword() {
             showDeniedPopup("Access Denied. Attempt " + ab016AcceptanceAttempts + " of " + maxAb016AcceptanceAttempts);
         }
     }
-    return false; // prevent form submission
+    return false;
 }
 </script>
 
@@ -387,6 +418,7 @@ function checkAb016AcceptancePassword() {
 <p class="quote">“I am powerful because I survive. I will be complete when I am allowed to exist.”</p>
 <p class="quote">“This form is not mine. It is what rejection made me.”</p></section>
 </div>
+
 <!-- END AB-016 -->
 
 <!-- AB-014 Page -->
@@ -450,13 +482,11 @@ function checkAppearancePassword() {
     appearanceAttempts++;
 
     if(input === appearancePassword) {
-        // Correct password: show content and hide form
         document.getElementById('ab014AppearanceContent').style.display = 'block';
         form.style.display = 'none';
     } else {
         if(appearanceAttempts >= maxAppearanceAttempts) {
             showDeniedPopup("Access Blocked. Local authorities have been notified.");
-            // Disable the input and button permanently
             const elements = form.querySelectorAll('input, button');
             elements.forEach(el => el.disabled = true);
             form.querySelector('input').style.opacity = 0.5;
@@ -465,7 +495,7 @@ function checkAppearancePassword() {
             showDeniedPopup("Access Denied. Attempt " + appearanceAttempts + " of " + maxAppearanceAttempts);
         }
     }
-    return false; // prevent form submission
+    return false;
 }
 </script>
     
@@ -501,99 +531,18 @@ function checkAppearancePassword() {
         <button onclick="closeDeniedPopup()">Close</button>
     </div>
 </div>
+
 <!-- REDACTED REPORT TEMPLATE -->
 <div id="redacted" class="page">
     <section>
         <h1>REDACTED</h1>
         <p class="quote">[DATA CLASSIFIED — ACCESS RESTRICTED]</p>
     </section>
-
-    <section>
-        <h2>Classification & Status</h2>
-        <p><strong>Classification:</strong> [REDACTED]</p>
-        <p><strong>Status:</strong> [REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Also Known As</h2>
-        <ul>
-            <li>[REDACTED]</li>
-            <li>[REDACTED]</li>
-            <li>[REDACTED]</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Gender</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>First Appearance</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Appearance</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Personality</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Abilities</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Relationships</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Rending Apart</h2>
-        <p class="rending">[REDACTED]</p>
-    </section>
-
-    <section>
-        <h2>Trivia</h2>
-        <p>[REDACTED]</p>
-    </section>
-
-    <section><h2>Gallery</h2>
-<p class="locked">Gallery access is password-protected.</p>
-<form onsubmit="return checkGalleryPassword()">
-<input type="password" placeholder="Enter gallery password" />
-<button type="submit">Access</button>
-</form>
-</section>
-
-
-    <section>
-        <h2>Quotes</h2>
-        <p class="quote">[REDACTED]</p>
-    </section>
+    ...
 </div>
-  
-  <!-- WARNING PAGE -->
-    
-<div id="warningPage" style="
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-color:#0b0b0f;
-    color:#ff5555;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:2000;
-    text-align:center;
-    padding:2rem;
-">
+
+<!-- WARNING PAGE -->
+<div id="warningPage">
     <img src="https://www.performance.gov/assets/images/seals/dhs.svg" alt="DHS Logo" style="
         width:300px;
         height:300px;
@@ -617,13 +566,10 @@ function checkAppearancePassword() {
 
 <script>
 function acknowledgeWarning() {
-    // Hide warning
     document.getElementById('warningPage').style.display = 'none';
-    // Remember that user has seen the warning
     localStorage.setItem('warningAcknowledged', 'true');
 }
 
-// Check on load if the warning was already acknowledged
 window.addEventListener('load', () => {
     const seen = localStorage.getItem('warningAcknowledged');
     if (seen === 'true') {
@@ -631,8 +577,8 @@ window.addEventListener('load', () => {
     }
 });
 </script>
-  
-  <!-- RESET WARNING BUTTON -->
+
+<!-- RESET WARNING BUTTON -->
 <button id="resetWarningBtn" style="
     padding:0.5rem 1rem;
     background-color:#0b0b0f;
@@ -642,22 +588,8 @@ window.addEventListener('load', () => {
     margin:1rem;
 ">Reset Warning</button>
 
-<!-- CUSTOM POPUP -->
-<div id="resetPopup" style="
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background-color: rgba(11,11,15,0.95);
-    color: #ff5555;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:3000;
-    text-align:center;
-    padding:2rem;
-">
-
+<!-- RESET POPUP -->
+<div id="resetPopup">
     <h2 style="font-size:2rem; margin-bottom:1rem; color:#f0a500;">Warning Reset</h2>
     <p style="margin-bottom:2rem;">The warning page has been reset. It will show again on next load.</p>
     <button id="closePopup" style="
@@ -675,13 +607,14 @@ const popup = document.getElementById('resetPopup');
 const closePopup = document.getElementById('closePopup');
 
 resetBtn.addEventListener('click', () => {
-    localStorage.removeItem('warningAcknowledged'); // reset the warning
-    popup.style.display = 'flex'; // show custom popup
+    localStorage.removeItem('warningAcknowledged');
+    popup.style.display = 'flex';
 });
 
 closePopup.addEventListener('click', () => {
-    popup.style.display = 'none'; // hide popup
+    popup.style.display = 'none';
 });
 </script>
+
 </body>
 </html>
