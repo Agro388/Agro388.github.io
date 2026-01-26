@@ -4,7 +4,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Subjects Reports</title>
-     <link rel="icon" type="image/x-icon" href="https://www.performance.gov/assets/images/seals/dhs.svg">
+
+ <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://www.performance.gov/assets/images/seals/dhs.svg">
+  
+  <!-- Optional fallback for older browsers -->
+  <link rel="shortcut icon" href="https://www.performance.gov/assets/images/seals/dhs.svg" type="image/x-icon">
+
 <style>
     body {
         font-family: 'Arial', sans-serif;
@@ -186,6 +192,13 @@ window.onload = () => showPage('ab014');
 </head>
 <body>
 
+<!-- MASTER UNLOCK BUTTON -->
+<div style="text-align:center; margin:1rem;">
+  <input type="password" id="masterUnlockInput" placeholder="Hint:God">
+  <button id="masterUnlockBtn">Unlock All Locked Sections</button>
+  <p id="masterUnlockMessage" style="color:#ff5555; margin-top:0.5rem;"></p>
+</div>
+
 <header>
     <img src="https://www.performance.gov/assets/images/seals/dhs.svg" alt="DHS Logo" style="
         width:300px;
@@ -201,9 +214,12 @@ window.onload = () => showPage('ab014');
     <a href="#" onclick="event.preventDefault(); showPage('ab014')">AB-014</a>
     <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-015</a>
     <a href="#" onclick="event.preventDefault(); showPage('ab016')">AB-016</a>
-    <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-017</a>
+    <a href="#" onclick="event.preventDefault(); showPage('snapper')">AB-017</a>
     <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-018</a>
     <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-019</a>
+    <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-020</a>
+    <a href="#" onclick="event.preventDefault(); showPage('alex')">AB-021</a>
+    <a href="#" onclick="event.preventDefault(); showPage('redacted')">AB-022</a>
 </nav>
 
 <!-- AB-016 Page -->
@@ -330,20 +346,63 @@ function checkAb016AppearancePassword() {
 <li>AB-014: Mentor / peer influence; can stabilize Nova slightly but cannot fully unlock Stellar Form</li>
 </ul></section>
 
-<section><h2>Abilities</h2>
-<ul>
-<li>Reality rule bypass (localized and unstable)</li>
-<li>Ability nullification and suppression (partial in unstable Stellar Form)</li>
-<li>Extreme physical adaptability</li>
-<li>Superhuman strength, speed, perception</li>
-<li>Phase movement / short-range teleportation</li>
-<li>Temporal resistance (partial)</li>
-<li>Dimensional awareness</li>
-<li>Predatory cognition (threat prediction)</li>
-<li>Stellar Howl: wave disrupts powers/tech (nerfed if unstable)</li>
-<li>Powers evolve mid-conflict to adapt to threats</li>
-<li>Mental strain and inefficiency occur if Stellar Form is used without recognition</li>
-</ul></section>
+<section>
+<h2>Abilities</h2>
+<p class="locked">Detailed abilities are password-protected.</p>
+
+<form id="ab016AbilitiesForm" onsubmit="return checkAb016AbilitiesPassword()">
+    <input type="password" placeholder="Enter abilities password">
+    <button type="submit">Access</button>
+</form>
+
+<div id="ab016AbilitiesContent" style="display:none; margin-top:1rem;">
+    <ul>
+        <li>Reality rule bypass (localized and unstable)</li>
+        <li>Ability nullification and suppression (partial in unstable Stellar Form)</li>
+        <li>Extreme physical adaptability</li>
+        <li>Superhuman strength, speed, perception</li>
+        <li>Phase movement / short-range teleportation</li>
+        <li>Temporal resistance (partial)</li>
+        <li>Dimensional awareness</li>
+        <li>Predatory cognition (threat prediction)</li>
+        <li>Stellar Howl: wave disrupts powers/tech (nerfed if unstable)</li>
+        <li>Powers evolve mid-conflict to adapt to threats</li>
+        <li>Mental strain and inefficiency occur if Stellar Form is used without recognition</li>
+    </ul>
+</div>
+</section>
+
+<script>
+let ab016AbilitiesAttempts = 0;
+const maxAb016AbilitiesAttempts = 3;
+const ab016AbilitiesPassword = "AB016ABIL"; // change if needed
+
+function checkAb016AbilitiesPassword() {
+    const form = document.getElementById('ab016AbilitiesForm');
+    const input = form.querySelector('input[type="password"]').value;
+    ab016AbilitiesAttempts++;
+
+    if (input === ab016AbilitiesPassword) {
+        document.getElementById('ab016AbilitiesContent').style.display = 'block';
+        form.style.display = 'none';
+    } else {
+        if (ab016AbilitiesAttempts >= maxAb016AbilitiesAttempts) {
+            showDeniedPopup("Access Blocked. Local authorities have been notified.");
+            form.querySelectorAll('input, button').forEach(el => el.disabled = true);
+            form.style.opacity = 0.5;
+        } else {
+            showDeniedPopup(
+                "Access Denied. Attempt " +
+                ab016AbilitiesAttempts +
+                " of " +
+                maxAb016AbilitiesAttempts
+            );
+        }
+    }
+    return false;
+}
+</script>
+
 
 <section>
 <h2>Acceptance Mechanics</h2>
@@ -520,8 +579,85 @@ function checkAppearancePassword() {
     
 <section><h2>Personality</h2><p>Malevolent.</p></section>
 
-<section><h2>Abilities</h2>
-<p>Shape shifting, superhuman strength, superhuman thinking speed, illusions, ability changing, ability immunity, ability disabling, mind control, mind reading, memory wipe, matter manipulation, time stop, time rewind, speed up time, time skip, time travel, invulnerability, invincibility, immortality, invisibility, night vision, wall vision, flight, teleportation, precognition, omniscient, superhuman sight, superhuman hearing, superhuman awareness, instant kill, force field, instant healing, pain immunity, telekinesis, telepathy, interdimensional travel, extreme physical adaptability (abilities evolve over time), creation of other life forms.</p></section>
+<section>
+<h2>Abilities</h2>
+<p class="locked">This section is password-protected.</p>
+
+<form id="ab014AbilitiesForm" onsubmit="return checkAbilitiesPassword()">
+  <input type="password" placeholder="Enter abilities password">
+  <button type="submit">Access</button>
+</form>
+
+<div id="ab014AbilitiesContent" style="display:none; margin-top:1rem;">
+  <p>Shape shifting</p>
+  <p>Strength</p>
+  <p>Superhuman thinking speed</p>
+  <p>Illusions</p>
+  <p>Ability changing</p>
+  <p>Ability immunity</p>
+  <p>Ability disabling</p>
+  <p>Mind control</p>
+  <p>Mind reading</p>
+  <p>Memory wipe</p>
+  <p>Matter manipulation</p>
+  <p>Time stop</p>
+  <p>Time rewind</p>
+  <p>Speed up time</p>
+  <p>Time skip</p>
+  <p>Time travel</p>
+  <p>Invulnerability</p>
+  <p>Invincibility</p>
+  <p>Immortality</p>
+  <p>Invisibility</p>
+  <p>Night vision</p>
+  <p>Wall vision</p>
+  <p>Flight</p>
+  <p>Teleportation</p>
+  <p>Precognition</p>
+  <p>Omniscient</p>
+  <p>Superhuman sight</p>
+  <p>Superhuman hearing</p>
+  <p>Superhuman awareness</p>
+  <p>Instant kill</p>
+  <p>Force field</p>
+  <p>Instant healing</p>
+  <p>Pain immunity</p>
+  <p>Telekinesis</p>
+  <p>Telepathy</p>
+  <p>Interdimensional travel</p>
+  <p>Extreme physical adaptability (abilities evolve over time)</p>
+  <p>Creation of other life forms</p>
+</div>
+</section>
+
+<script>
+let abilitiesAttempts = 0;
+const maxAbilitiesAttempts = 3;
+const abilitiesPassword = "AB014ABIL"; // set your desired password here
+
+function checkAbilitiesPassword() {
+    const form = document.getElementById('ab014AbilitiesForm');
+    const input = form.querySelector('input[type="password"]').value;
+    abilitiesAttempts++;
+
+    if(input === abilitiesPassword) {
+        document.getElementById('ab014AbilitiesContent').style.display = 'block';
+        form.style.display = 'none';
+    } else {
+        if(abilitiesAttempts >= maxAbilitiesAttempts) {
+            showDeniedPopup("Access Blocked. Local authorities have been notified.");
+            const elements = form.querySelectorAll('input, button');
+            elements.forEach(el => el.disabled = true);
+            form.querySelector('input').style.opacity = 0.5;
+            form.querySelector('button').style.opacity = 0.5;
+        } else {
+            showDeniedPopup("Access Denied. Attempt " + abilitiesAttempts + " of " + maxAbilitiesAttempts);
+        }
+    }
+    return false;
+}
+</script>
+
 
 <section><h2>Rending Apart</h2>
 <p class="rending">There is currently no known way of incapacitating AB-014.</p></section>
@@ -535,6 +671,255 @@ function checkAppearancePassword() {
 <button type="submit">Access</button>
 </form>
 </section></div>
+
+<!-- SNAPPPER REPORT -->
+<div id="snapper" class="page">
+<section>
+<h1>Snapper</h1>
+<p class="quote">“The moment I was born, I knew what I had to do.” — Snapper</p>
+</section>
+
+<section>
+<h2>Also Known As</h2>
+<ul>
+<li>The Entity (Department of Homeland Security)</li>
+<li>The Threat (Department of Homeland Security)</li>
+<li>Autonomous Machine (Department of Homeland Security)</li>
+<li>Big green fellow (Alexander Clarissimus)</li>
+<li>Green bellied coward (Alexander Clarissimus)</li>
+<li>The old man (Charlotte Splendere)</li>
+</ul>
+</section>
+
+<section>
+<h2>Gender</h2>
+<p>Non (it/its/they/them)</p>
+</section>
+
+<section>
+<h2>First Appearance</h2>
+<p>EAS Scenario, May 4th 2027: Snapper</p>
+</section>
+
+<section>
+<h2>Relationships</h2>
+<ul>
+<li>United States government (enemy)</li>
+<li>Oculus Caelorum (former enemy)</li>
+<li>The Vulcan Knight (enemy)</li>
+<li>Charlotte Splendere (successor)</li>
+</ul>
+</section>
+
+<section>
+<h2>Description</h2>
+<p>Snapper is a sentient machine powered by millions of vengeful souls that were killed by the Oculus Caelorum, contained in a crystal which also serves as its power source. Since it doesn’t have the power to hunt down Oculus Caelorum directly, its sole goal is to eliminate individuals who support or allied with the Oculus Caelorum. Its origin is unknown; it appears randomly, and the exact computational resources it uses remain mysterious.</p>
+</section>
+
+<section>
+<h2>Abilities</h2>
+<p class="locked">Detailed abilities are password-protected.</p>
+<form id="snapperAbilitiesForm" onsubmit="return checkSnapperAbilitiesPassword()">
+    <input type="password" placeholder="Enter abilities password">
+    <button type="submit">Access</button>
+</form>
+
+<div id="snapperAbilitiesContent" style="display:none; margin-top:1rem;">
+<ul>
+<li>Main weapon: scavenged fire axe</li>
+<li>Extreme speed, precision, and agility</li>
+<li>Superhuman strength</li>
+<li>Punches and kicks for difficult opponents</li>
+<li>Highly resistant to bullets, fire, and completely waterproof</li>
+<li>Thermal, infrared, and ultraviolet vision with nearly 360° coverage (cameras on shoulders/backhand)</li>
+</ul>
+</div>
+</section>
+
+<script>
+let snapperAbilitiesAttempts = 0;
+const maxSnapperAbilitiesAttempts = 3;
+const snapperAbilitiesPassword = "SNAPPERPASS";
+
+function checkSnapperAbilitiesPassword() {
+    const form = document.getElementById('snapperAbilitiesForm');
+    const input = form.querySelector('input[type="password"]').value;
+    snapperAbilitiesAttempts++;
+
+    if(input === snapperAbilitiesPassword) {
+        document.getElementById('snapperAbilitiesContent').style.display = 'block';
+        form.style.display = 'none';
+    } else {
+        if(snapperAbilitiesAttempts >= maxSnapperAbilitiesAttempts) {
+            showDeniedPopup("Access Blocked. Local authorities have been notified.");
+            form.querySelectorAll('input, button').forEach(el => el.disabled = true);
+            form.style.opacity = 0.5;
+        } else {
+            showDeniedPopup("Access Denied. Attempt " + snapperAbilitiesAttempts + " of " + maxSnapperAbilitiesAttempts);
+        }
+    }
+    return false;
+}
+</script>
+
+<section>
+<h2>Rending Apart</h2>
+<p>Due to high resistance to most elements, only high-caliber firearms can weaken Snapper, but won’t fully eliminate it. Complete destruction requires removing all armor bolts and attacking its internal components. Even waterproof, it sinks rapidly in deep waters.</p>
+</section>
+
+<section>
+<h2>Relationship Details</h2>
+<h3>United States government</h3>
+<p>Classified Snapper as a highly dangerous terrorist. Snapper targets political figures associated with the Oculus Caelorum.</p>
+<h3>Oculus Caelorum</h3>
+<p>Snapper’s consciousness is formed from souls killed by the Oculus Caelorum, making it vengeful.</p>
+<h3>Alexander Clarissimus</h3>
+<p>Tracked, fought, and survived Snapper multiple times. Snapper respects Alexander with fear after being burnt black.</p>
+</section>
+
+<section>
+<h2>Trivia</h2>
+<ul>
+<li>The crystal powering Snapper is part of an Oculus Caelorum organ</li>
+<li>Snapper avoids brass objects despite having brass horns</li>
+<li>Owns a pair of circular glasses with one cyan and one orange lens; rarely worn</li>
+</ul>
+</section>
+
+<section>
+<h2>Quotes</h2>
+<p class="quote">“You can’t stop the force of Justice.”</p>
+<p class="quote">“Why would anyone want to contact those horrific beings?”</p>
+<p class="quote">“Justice is served cold, steel cold.”</p>
+<p class="quote">“System override, servos override, cpu override, gpu override, ram override, hard drive override.”</p>
+<p class="quote">“I’m not sure when I’ll need this, but thanks for the glasses.”</p>
+</section>
+</div>
+<!-- END SNAPPPER -->
+
+<!-- ALEXANDER CLARISSIMUS REPORT -->
+<div id="alex" class="page">
+<section>
+<h1>Alexander Clarissimus</h1>
+<p class="quote">“It’s in my name to do this.” — Alex</p>
+</section>
+
+<section>
+<h2>Also Known As</h2>
+<ul>
+<li>The Vulcan Knight</li>
+<li>The bright one (Snapper)</li>
+</ul>
+</section>
+
+<section>
+<h2>Gender</h2>
+<p>Male (he/him)</p>
+</section>
+
+<section>
+<h2>First Appearance</h2>
+<p>[Incomplete]</p>
+</section>
+
+<section>
+<h2>Relationships</h2>
+<ul>
+<li>Benjamin Pochurek (friend, ally)</li>
+<li>Snapper (enemy)</li>
+</ul>
+</section>
+
+<section>
+<h2>Appearance</h2>
+<p>Alex is an average-looking white man, 6’1” tall, 23 years old. </p>
+<p>In Vulcan Knight form: full body plated armor made of copper, brass, and bronze, with a fire symbol on the chest. Gas mask under the helmet with two lenses (cyan and orange). Two batons attached to forearms, backpack with two tanks, tube connecting to a modified M2 flamethrower attached to the left arm.</p>
+</section>
+
+<section>
+<h2>Personality</h2>
+<p>Alex is a parallel to Snapper; he believes every life should not be exchanged for the greater good. He dedicates his life to stopping Snapper by any means, and possesses extreme determination.</p>
+</section>
+
+<section>
+<h2>Abilities</h2>
+<p class="locked">Detailed abilities are password-protected.</p>
+<form id="alexAbilitiesForm" onsubmit="return checkAlexAbilitiesPassword()">
+    <input type="password" placeholder="Enter abilities password">
+    <button type="submit">Access</button>
+</form>
+
+<div id="alexAbilitiesContent" style="display:none; margin-top:1rem;">
+<ul>
+<li>High durability against sharp and blunt attacks in Vulcan Knight form</li>
+<li>Batons act as shields and melee weapons</li>
+<li>Main weapon: flamethrower fueled by napalm (operable with one hand)</li>
+<li>Gas mask protects against poison, smoke, ash, dust, and sand</li>
+<li>Exceptional combat skill, tracking, and ambushing Snapper</li>
+</ul>
+</div>
+</section>
+
+<script>
+let alexAbilitiesAttempts = 0;
+const maxAlexAbilitiesAttempts = 3;
+const alexAbilitiesPassword = "ALEXPASS";
+
+function checkAlexAbilitiesPassword() {
+    const form = document.getElementById('alexAbilitiesForm');
+    const input = form.querySelector('input[type="password"]').value;
+    alexAbilitiesAttempts++;
+
+    if(input === alexAbilitiesPassword) {
+        document.getElementById('alexAbilitiesContent').style.display = 'block';
+        form.style.display = 'none';
+    } else {
+        if(alexAbilitiesAttempts >= maxAlexAbilitiesAttempts) {
+            showDeniedPopup("Access Blocked. Local authorities have been notified.");
+            form.querySelectorAll('input, button').forEach(el => el.disabled = true);
+            form.style.opacity = 0.5;
+        } else {
+            showDeniedPopup("Access Denied. Attempt " + alexAbilitiesAttempts + " of " + maxAlexAbilitiesAttempts);
+        }
+    }
+    return false;
+}
+</script>
+
+
+
+<section>
+<h2>Rending Apart</h2>
+<p>Weaknesses include range and speed. Face is unprotected when helmet visor is up. Flamethrower can run out of fuel and requires significant time to refill.</p>
+</section>
+
+<section>
+<h2>Relationship Details</h2>
+<h3>Benjamin Pochurek</h3>
+<p>Friend and ally; provides materials, engineering, and assistance to create the Vulcan Knight suit. Often acts as Alex’s getaway driver.</p>
+<h3>Snapper</h3>
+<p>Primary target. Alex constantly tracks Snapper’s location and ambushes it as the Vulcan Knight.</p>
+</section>
+
+<section>
+<h2>Trivia</h2>
+<ul>
+<li>Amber Cain originally had a similar suit and flamethrower, but lacked purpose.</li>
+</ul>
+</section>
+
+<section>
+<h2>Quotes</h2>
+<p class="quote">“Stop that big green fellow!”</p>
+<p class="quote">“Didn’t see you as a green bellied coward.”</p>
+<p class="quote">“Pochurek, couldn’t you deploy N- alright I get it, just pick me up when I need it.”</p>
+<p class="quote">“The Vulcan Knight appears!”</p>
+<p class="quote">“Don’t worry guys, I just broke my arm fighting the chared one.”</p>
+<p class="quote">“Good one pal, glasses with pretty cool colors. I might stick them to my gas mask.”</p>
+</section>
+</div>
+<!-- END ALEXANDER CLARISSIMUS -->
+
 
 <!-- Denied Popup -->
 <div id="deniedPopup">
@@ -554,8 +939,8 @@ function checkAppearancePassword() {
 <!-- REDACTED REPORT TEMPLATE -->
 <div id="redacted" class="page">
     <section>
-        <h1>[REDACTED]</h1>
-        <p class="quote">[DATA CLASSIFIED]</p>
+        <h1>REDACTED</h1>
+        <p class="quote">[DATA CLASSIFIED — ACCESS RESTRICTED]</p>
     </section>
 
     <section>
@@ -654,6 +1039,47 @@ window.addEventListener('load', () => {
     }
 });
 </script>
+
+<script>
+let masterUnlockAttempted = false;
+const masterUnlockPassword = "AB014"; // set your master password here
+
+document.getElementById('masterUnlockBtn').addEventListener('click', () => {
+    if(masterUnlockAttempted) return;
+
+    const input = document.getElementById('masterUnlockInput').value;
+
+    if(input === masterUnlockPassword) {
+        // Show all locked contents except galleries and hide forms
+        const lockedDivs = document.querySelectorAll('.locked');
+        lockedDivs.forEach(div => {
+            if(!div.closest('section')?.querySelector('h2')?.innerText.includes('Gallery')) {
+                div.style.display = 'none';
+            }
+        });
+
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            // Skip gallery forms
+            if(!form.closest('section')?.querySelector('h2')?.innerText.includes('Gallery')) {
+                const parent = form.parentElement;
+                if(parent) parent.querySelectorAll('div[id$="Content"]').forEach(c => c.style.display = 'block');
+                form.style.display = 'none';
+            }
+        });
+
+        document.getElementById('masterUnlockMessage').style.color = '#00ff00';
+        document.getElementById('masterUnlockMessage').innerText = "All sections unlocked!";
+    } else {
+        document.getElementById('masterUnlockMessage').innerText = "Incorrect password. Button locked.";
+        document.getElementById('masterUnlockBtn').disabled = true;
+        document.getElementById('masterUnlockInput').disabled = true;
+    }
+
+    masterUnlockAttempted = true;
+});
+</script>
+
 
 <!-- RESET WARNING BUTTON -->
 <button id="resetWarningBtn" style="
