@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Hub</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .hub-container {
+        background: #121212;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+        text-align: center;
+        width: 400px;
+    }
+
+    .password-container, {
+        background: #121212;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+        text-align: center;
+        width: 400px;
+    }
+
+    input[type="password"] {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ff2e2e;
+        margin-bottom: 15px;
+        width: 80%;
+    }
+    
+    h1 {
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+        color: #ff2e2e;
+    }
+
+    .link-btn {
+    display: block;
+    margin: 12px 0;
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+    background: #1f1f1f;
+    border: 1px solid #ff2e2e;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    box-shadow: 0 0 8px #ff2e2e;
+    animation: pulse 2s infinite;
+}
+
+.link-btn:hover {
+    background: #ff2e2e;
+    color: black;
+    transform: scale(1.05);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 8px #ff2e2e, 0 0 16px #ff2e2e50;
+    }
+    50% {
+        box-shadow: 0 0 16px #ff2e2e, 0 0 32px #ff2e2e80;
+    }
+    100% {
+        box-shadow: 0 0 8px #ff2e2e, 0 0 16px #ff2e2e50;
+    }
+}
+    
+   /* .hub-container { display: none; }  hidden until password correct */
+    
+</style>
+</head>
+
+<body>
+
+<div class="hub-container">
+    <h1>ACCESS HUB</h1>
+
+    <a class="link-btn" href="index.html">Main Index</a>
+    <a class="link-btn" href="abp16.html">ABP-16</a>
+    <a class="link-btn" href="anomally_report.html">Anomaly Report</a>
+    <a class="link-btn" href="page.html">Page</a>
+    <a class="link-btn" href="plots.html">Plots</a>
+    <a class="link-btn" href="test2.html">ChronoSMP</a>
+</div>
+
+</body>
+</html>
