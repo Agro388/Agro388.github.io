@@ -1,0 +1,376 @@
+/* General Styles */
+body {
+    background-color: #0f0000;
+    color: #f0e6d2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+/* Header & Quotes */
+header {
+    grid-column: 1 / span 2;
+    text-align: center;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #ff0000;
+    font-size: 3rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.quote {
+    font-style: italic;
+    color: #aaaaaa;
+}
+
+/* Sections */
+h2 {
+    color: #ffcc00;
+    border-left: 5px solid #ff0000;
+    padding-left: 15px;
+    margin-top: 40px;
+}
+
+.appearance-card {
+    background: #1a0505;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.appearance-card h3 {
+    margin-top: 0;
+    color: #ffcc00;
+}
+
+/* Table */
+.scaling-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.scaling-table th, .scaling-table td {
+    padding: 12px;
+    border: 1px solid #ff0000;
+    text-align: left;
+}
+
+.scaling-table th {
+    background-color: #440000;
+}
+
+/* Sidebar / Infobox */
+.sidebar {
+    background: #1a0000;
+    padding: 20px;
+    border-radius: 10px;
+    height: fit-content;
+    border: 1px solid #ff0000;
+}
+
+.infobox h3, .trivia h3 {
+    text-align: center;
+    background: #ffcc00;
+    color: #000;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.note-box {
+    margin-top: 30px;
+    background: #2d1b1b;
+    border: 1px solid #ff4444;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+blockquote {
+    border-left: 3px solid #444;
+    margin: 10px 0;
+    padding-left: 15px;
+    color: #88ccff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    header {
+        grid-column: 1;
+    }
+}
+/* Back Button Wrapper */
+.header-nav {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+/* The Button Styling */
+.back-btn {
+    display: inline-block;
+    color: #ffcc00; /* Yellow text */
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid #ff0000; /* Red border */
+    padding: 6px 12px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Hover Effect */
+.back-btn:hover {
+    background-color: #ff0000; /* Fills red on hover */
+    color: #ffffff; /* Turns white on hover */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+    .header-nav {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+}
+
+/* Fixed Back Button - Rounded & Semi-Transparent */
+.back-btn-fixed {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 10000; /* High z-index to stay above everything */
+    
+    display: inline-block;
+    padding: 12px 24px;
+    
+    /* Colors & Transparency */
+    color: #ffcc00; 
+    background-color: rgba(15, 15, 15, 0.7); /* 70% opacity black */
+    border: 2px solid #ff0000;
+    
+    /* Rounded Edges */
+    border-radius: 50px; 
+    
+    /* Visual Effects */
+    backdrop-filter: blur(6px); /* Blurs content behind the button */
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover State */
+.back-btn-fixed:hover {
+    background-color: rgba(255, 0, 0, 0.85); /* Becomes Red-Glass on hover */
+    color: #ffffff;
+    border-color: #ffcc00;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+}
+
+/* Active State */
+.back-btn-fixed:active {
+    transform: scale(0.95);
+}
+
+/* Blank Footer Spacer */
+.bottom-spacer {
+    height: 100px; /* Adjust this height to give the button more or less room */
+    width: 100%;
+    background: transparent;
+    pointer-events: none; /* Ensures it doesn't interfere with clicks */
+    clear: both;
+}
+
+/* Standard Button - Rounded & Semi-Transparent */
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: rgba(255, 0, 0, 0.1); /* Very faint red tint */
+    color: #ffcc00;
+    border: 2px solid #ff0000;
+    border-radius: 50px; /* Fully pill-shaped */
+    backdrop-filter: blur(4px);
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background-color: #ffcc00;
+    color: #000;
+    border-color: #ffcc00;
+}
+
+/* Hub Grid Layout */
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 40px 0;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Hub Card Styling */
+.hub-card {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    
+    /* Rounded & Semi-Transparent */
+    background: rgba(20, 20, 20, 0.4); 
+    border: 2px solid #ff0000; /* Red Border */
+    border-radius: 20px;
+    
+    padding: 30px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px); /* Glass effect */
+}
+
+/* Hover State */
+.hub-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #ffcc00; /* Turns Yellow on hover */
+    background: rgba(40, 40, 40, 0.6);
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); /* Red glow */
+}
+
+/* Title Styling */
+.hub-card h3 {
+    margin: 0 0 10px 0;
+    color: #ffcc00; /* Yellow Text */
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: 0.3s;
+}
+
+/* Description Styling */
+.hub-card p {
+    margin: 0;
+    color: #ff4444; /* Dim Red Text */
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Animated Corner Detail */
+.hub-card::before {
+    content: "OPEN FILE";
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: #ff0000;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+}
+
+.hub-card:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+    color: #ffcc00;
+}
+
+/* Hover glow for the title */
+.hub-card:hover h3 {
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+}
+
+/* --- Phone & Mobile Support --- */
+
+/* This triggers for most phones and smaller devices */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Fix the Container */
+    .container {
+        display: block; /* Stack header and sidebar vertically */
+        padding: 10px;
+        width: 95%;
+    }
+
+    /* 2. Adjust Header for smaller screens */
+    h1 {
+        font-size: 2.2rem; /* Shrink text slightly so it doesn't wrap weirdly */
+        letter-spacing: 2px;
+    }
+
+    /* 3. Handle Sidebar & Main Layout */
+    /* On mobile, we want the sidebar to sit nicely above or below the content */
+    .sidebar {
+        width: 100%; /* Full width on mobile */
+        margin-bottom: 30px;
+        box-sizing: border-box;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* 4. Landscape Specific Adjustments */
+    /* If the phone is sideways, we want to ensure the grid doesn't get too cramped */
+    @media (orientation: landscape) {
+        .hub-grid {
+            grid-template-columns: repeat(2, 1fr); /* Two cards per row in landscape */
+            gap: 15px;
+        }
+        
+        /* Ensure fixed button doesn't block too much view in short landscape mode */
+        .back-btn-fixed {
+            padding: 8px 16px;
+            font-size: 0.7rem;
+            bottom: 10px;
+            left: 10px;
+        }
+    }
+
+    /* 5. Portrait Specific Adjustments */
+    @media (orientation: portrait) {
+        .hub-grid {
+            grid-template-columns: 1fr; /* One card per row in portrait */
+        }
+    }
+
+    /* 6. Fix Tables */
+    /* Tables are notorious for breaking mobile layouts. This allows them to scroll. */
+    .scaling-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border: 1px solid #444;
+    }
+}
