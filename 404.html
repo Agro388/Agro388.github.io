@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404: Access Denied</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ensures the entire screen is used for centering */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevents accidental scrolling */
+        }
+
+        .error-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertical Center */
+            align-items: center;     /* Horizontal Center */
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-code {
+            font-size: clamp(5rem, 15vw, 8rem); /* Responsive sizing */
+            margin: 0;
+            color: #ff4d4d; /* Red error color */
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap; /* Stacks buttons on small screens */
+            justify-content: center;
+        }
+
+        .error-link {
+            text-decoration: none;
+            min-width: 200px;
+        }
+
+        /* Styling to match your existing hub-card aesthetic */
+        .hub-card {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .hub-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-wrapper">
+        <h1 class="error-code">404</h1>
+        <h2 style="margin-top: 0; letter-spacing: 2px;">FILE NOT FOUND</h2>
+        <p style="max-width: 500px; line-height: 1.5; opacity: 0.8;">
+            The system could not locate the requested directory or personnel file. 
+            The data may have been purged or relocated.
+        </p>
+
+        <div class="button-group">
+            <a href="pau-wiki.html" class="hub-card error-link">
+                <div class="card-content">
+                    <h3>PAU Wiki</h3>
+                    <p>Go to Wiki Page</p>
+                </div>
+            </a>
+
+            <a href="index.html" class="hub-card error-link">
+                <div class="card-content">
+                    <h3>Directory Hub</h3>
+                    <p>Back to Home</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
