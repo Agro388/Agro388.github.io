@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>System Hub</title>
 
 <style>
@@ -13,14 +14,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh; /* Changed from height to min-height for mobile */
+        overflow-y: auto; /* Allows scrolling if buttons exceed screen height */
         position: relative;
+        padding: 20px 0;
     }
 
     .hub-container {
         background: #121212;
-        padding: 50px 40px 40px 40px;
+        padding: 40px;
         border-radius: 14px;
         box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         text-align: center;
@@ -32,7 +34,7 @@
     }
 
     .hub-container:hover {
-        transform: scale(1.02);
+        transform: scale(1.01);
     }
 
     h1 {
@@ -40,6 +42,7 @@
         letter-spacing: 2px;
         font-size: 2rem;
         color: #ff2e2e;
+        text-transform: uppercase;
     }
 
     .link-btn {
@@ -59,20 +62,22 @@
 
     .link-btn:hover {
         background: #ff2e2e;
-        color: #000;
-        transform: scale(1.05);
+        color: #000 !important; /* Forces text to black on hover regardless of inline style */
+        transform: scale(1.03);
     }
 
     @keyframes pulse {
-        0% {
-            box-shadow: 0 0 10px #ff2e2e, 0 0 20px #ff2e2e50;
-        }
-        50% {
-            box-shadow: 0 0 20px #ff2e2e, 0 0 40px #ff2e2e80;
-        }
-        100% {
-            box-shadow: 0 0 10px #ff2e2e, 0 0 20px #ff2e2e50;
-        }
+        0% { box-shadow: 0 0 10px #ff2e2e, 0 0 20px #ff2e2e50; }
+        50% { box-shadow: 0 0 20px #ff2e2e, 0 0 40px #ff2e2e80; }
+        100% { box-shadow: 0 0 10px #ff2e2e, 0 0 20px #ff2e2e50; }
+    }
+
+    /* Mobile Landscape Optimization */
+    @media (max-height: 500px) {
+        body { align-items: flex-start; }
+        .hub-container { padding: 20px; margin-top: 10px; }
+        h1 { font-size: 1.5rem; margin-bottom: 10px; }
+        .link-btn { padding: 10px; margin: 8px 0; }
     }
 </style>
 </head>
@@ -85,6 +90,9 @@
     <a style="color: #00ff00;" class="link-btn" href="index.html">ChronoSMP</a>
     <a style="color: #ffcc00;" class="link-btn" href="abp16.html">AB-016</a>
     <a style="color: #ffcc00;" class="link-btn" href="anomally_report.html">Anomaly Report</a>
+    
+    <a style="color: #00ffff;" class="link-btn" href="pau-wiki.html">PAU Wiki</a>
+    
     <a style="color: #00ff00;" class="link-btn" href="page.html">Page</a>
     <a style="color: #00ff00;" class="link-btn" href="plots.html">Plots</a>
     <a style="color: #00ff00;" class="link-btn" href="test2.html">ChronoSMP</a>
