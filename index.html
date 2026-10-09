@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Feed Test</title>
+    <title>Global Feed</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -70,9 +70,9 @@
                 <button id="refreshBtn" title="Refresh Feed" class="text-zinc-400 hover:text-goldAccent p-2 rounded-full hover:bg-zinc-800/60 transition-colors">
                     <i class="fa-solid fa-arrows-rotate text-sm"></i>
                 </button>
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-950/80 text-goldAccent border border-red-800/50">
-                    <span class="w-2 h-2 rounded-full bg-crimsonRed mr-1.5 animate-pulse"></span>
-                    Global Live
+                <span id="syncBadge" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-950/80 text-goldAccent border border-red-800/50">
+                    <span id="syncDot" class="w-2 h-2 rounded-full bg-crimsonRed mr-1.5 animate-pulse"></span>
+                    <span id="syncText">Global Live</span>
                 </span>
             </div>
         </header>
@@ -164,9 +164,14 @@
 
     </div>
 
+    <!-- LIGHTBOX / FULL IMAGE MODAL -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4 cursor-pointer" onclick="closeLightbox()">
+        <img id="lightboxImg" class="max-w-full max-h-full rounded-xl shadow-2xl object-contain border border-zinc-800" src="" alt="Enlarged View">
+    </div>
+
     <script>
-        // Global Public Storage Endpoint Configuration (Zero Setup / Keyless Sync)
-        const GLOBAL_SYNC_ENDPOINT = "https://kvdb.io/4y9a48m3pT1NZrK6R3A8jA/github_feed_posts_v1";
+        // Global Endpoint (v3 key bucket for persistence)
+        const GLOBAL_SYNC_ENDPOINT = "https://kvdb.io/4y9a48m3pT1NZrK6R3A8jA/github_feed_posts_v3";
 
         // DOM Element Cache
         const feedList = document.getElementById('feedList');
@@ -178,6 +183,7 @@
         const submitPostBtn = document.getElementById('submitPostBtn');
         const submitBtnText = document.getElementById('submitBtnText');
         const submitSpinner = document.getElementById('submitSpinner');
+        const syncText = document.getElementById('syncText');
 
         const postAuthorInput = document.getElementById('postAuthor');
         const postTitleInput = document.getElementById('postTitle');
@@ -194,33 +200,43 @@
 
         async function fetchGlobalPosts() {
             try {
+                if (syncText) syncText.textContent = "Syncing...";
                 const response = await fetch(GLOBAL_SYNC_ENDPOINT, { cache: 'no-store' });
+                
+                // Handle 404 (Bucket key doesn't exist yet)
+                if (response.status === 404) {
+                    if (syncText) syncText.textContent = "Global Live";
+                    const localBackup = localStorage.getItem('global_feed_posts_backup');
+                    cachedPosts = localBackup ? JSON.parse(localBackup) : [];
+                    renderFeed(cachedPosts);
+                    return;
+                }
+
                 if (response.ok) {
                     const data = await response.json();
                     if (Array.isArray(data)) {
                         cachedPosts = data;
+                        localStorage.setItem('global_feed_posts_backup', JSON.stringify(cachedPosts));
                         renderFeed(cachedPosts);
+                        if (syncText) syncText.textContent = "Global Live";
                         return;
                     }
                 }
-                // If endpoint empty or uninitialized
-                renderFeed([]);
+                
+                throw new Error("Invalid response format");
             } catch (err) {
-                console.warn("Could not load from cloud sync endpoint, checking local cache...", err);
+                console.warn("Could not load from cloud sync, loading local backup...", err);
+                if (syncText) syncText.textContent = "Offline Mode";
                 const localBackup = localStorage.getItem('global_feed_posts_backup');
-                if (localBackup) {
-                    cachedPosts = JSON.parse(localBackup);
-                    renderFeed(cachedPosts);
-                } else {
-                    renderFeed([]);
-                }
+                cachedPosts = localBackup ? JSON.parse(localBackup) : [];
+                renderFeed(cachedPosts);
             }
         }
 
         async function publishPostGlobally(newPost) {
             cachedPosts.unshift(newPost);
             
-            // Limit to top 50 recent posts to keep payload lightweight
+            // Limit to top 50 recent posts to keep payload fast
             if (cachedPosts.length > 50) {
                 cachedPosts = cachedPosts.slice(0, 50);
             }
@@ -229,15 +245,18 @@
             localStorage.setItem('global_feed_posts_backup', JSON.stringify(cachedPosts));
             renderFeed(cachedPosts);
 
-            // Push to Public Storage Endpoint
+            // Push to Storage Endpoint
             try {
+                if (syncText) syncText.textContent = "Saving...";
                 await fetch(GLOBAL_SYNC_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(cachedPosts)
                 });
+                if (syncText) syncText.textContent = "Global Live";
             } catch (err) {
                 console.error("Failed to push post globally:", err);
+                if (syncText) syncText.textContent = "Sync Failed";
             }
         }
 
@@ -291,7 +310,7 @@
 
                     <!-- Image Thumbnail -->
                     ${post.imageUrl ? `
-                        <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 shrink-0 shadow-sm self-center">
+                        <div class="w-20 h-20 rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 shrink-0 shadow-sm self-center cursor-pointer" onclick="openLightbox('${post.imageUrl}')">
                             <img src="${post.imageUrl}" alt="Attachment" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/16141a/f59e0b?text=Image'">
                         </div>
                     ` : ''}
@@ -301,7 +320,7 @@
             });
         }
 
-        function compressImage(file, maxWidth = 450, quality = 0.6) {
+        function compressImage(file, maxWidth = 500, quality = 0.6) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -380,6 +399,15 @@
             submitSpinner.classList.add('hidden');
         }
 
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
         function setupEventListeners() {
             openModalBtn.addEventListener('click', openModal);
             closeModalBtn.addEventListener('click', closeModal);
@@ -453,10 +481,10 @@
             setupEventListeners();
             fetchGlobalPosts();
 
-            // Auto-refresh feed every 12 seconds
+            // Auto-refresh feed every 10 seconds
             setInterval(() => {
                 fetchGlobalPosts();
-            }, 12000);
+            }, 10000);
         });
     </script>
 </body>
