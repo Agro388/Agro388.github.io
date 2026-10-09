@@ -37,22 +37,11 @@
             background-color: #0b0b0c;
             color: #f3f4f6;
         }
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0b0c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2430;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #dc2626;
-        }
-        .glow-gold {
-            box-shadow: 0 0 18px rgba(245, 158, 11, 0.35);
-        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0b0b0c; }
+        ::-webkit-scrollbar-thumb { background: #2a2430; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+        .glow-gold { box-shadow: 0 0 18px rgba(245, 158, 11, 0.35); }
     </style>
 </head>
 <body class="min-h-screen flex justify-center bg-darkBg antialiased selection:bg-crimsonRed selection:text-white">
@@ -81,7 +70,6 @@
 
         <!-- FEED LIST CONTAINER -->
         <main id="feedList" class="flex-1 divide-y divide-zinc-800/50 pb-24 overflow-y-auto">
-            <!-- Loading Indicator -->
             <div id="loadingState" class="p-12 text-center text-zinc-500">
                 <i class="fa-solid fa-circle-notch fa-spin text-3xl text-goldAccent mb-3"></i>
                 <p class="text-sm">Connecting to global cloud feed...</p>
@@ -163,15 +151,13 @@
     </div>
 
     <script>
-        // --- YOUR CONNECTED SUPABASE PROJECT ---
+        // --- SUPABASE CONFIGURATION ---
         const SUPABASE_URL = "https://lpnmkzlblxeztsgtihzd.supabase.co";
-        const SUPABASE_KEY = "Sb_publishable_Kp5dbUU6i8RU_z30zzAKBw_jokrJSvA";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxwbm1remxibHhlenRzZ3RpaHpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1Mjk1NjEsImV4cCI6MjEwNzEwNTU2MX0.-lAI8unHDyq-N9NpauKHz6cvL2yLmzZQVFgMjmJEDBs";
         const ADMIN_PASSWORD = "admin"; // Admin delete password
 
-        // Initialize Supabase client using 'db' variable name to prevent naming collision
         const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-        // State & DOM elements
         let isAdminLoggedIn = false;
         let cachedPosts = [];
         let currentImageData = null;
@@ -462,7 +448,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             setupEventListeners();
             fetchGlobalPosts();
-            setInterval(fetchGlobalPosts, 8000); // Auto refresh every 8 seconds
+            setInterval(fetchGlobalPosts, 8000);
         });
     </script>
 </body>
