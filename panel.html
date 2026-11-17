@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transmission Archive</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        background-color: #0a0a0a;
+        font-family: "Orbitron", sans-serif;
+        color: #e0e0e0;
+    }
+    .img {
+        draggable="false"
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 60px auto;
+        padding: 40px;
+        background-color: #111;
+        border-radius: 12px;
+        border: 1px solid #ff0000;
+        box-shadow: 0 0 25px #ff0000;
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff0000;
+        letter-spacing: 3px;
+        margin-bottom: 40px;
+    }
+
+    .grid {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background-color: #1a1a1a;
+        width: 300px;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #ff0000;
+        box-shadow: 0 0 15px #ff0000;
+        transition: 0.3s ease;
+        cursor: pointer;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 30px #ff0000;
+    }
+
+    .card h2 {
+        color: #ff5555;
+        margin-bottom: 15px;
+    }
+
+    .card p {
+        font-size: 0.95em;
+        opacity: 0.8;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .footer {
+        margin-top: 50px;
+        color: #ff0000;
+        font-size: 0.9em;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>TRANSMISSION ARCHIVE</h1>
+
+    <div class="grid">
+        <a href="transition.html">
+            <div class="card">
+                <h2>Imperial Transmission</h2>
+                <p>Official notice issued by Imperial Central Command regarding Omega’s defection.</p>
+            </div>
+        </a>
+
+        <a href="response.html">
+            <div class="card">
+                <h2>Encrypted Response</h2>
+                <p>Intercepted counter-transmission from Omega.</p>
+            </div>
+        </a>
+
+        <a href="recon.html">
+            <div class="card">
+                <h2>Recon Report</h2>
+                <p>Scout data showing positions of remaining loyal units.</p>
+            </div>
+        </a>
+
+        <a href="intell.html">
+            <div class="card">
+                <h2>Classified Intel</h2>
+                <p>High-priority intelligence documents recovered from Omega’s network.</p>
+            </div>
+        </a>
+
+        <a href="directive.html">
+            <div class="card">
+                <h2>Operational Directive</h2>
+                <p>Orders issued by the high command for immediate response protocols.</p>
+            </div>
+        </a>
+        
+            <a href="final_demand.html">
+            <div class="card">
+                <h2>Encrypted Response</h2>
+                <p>Intercepted counter-transmission from Omega.</p>
+            </div>
+        </a>
+                 <a href="error.html">
+            <div class="card">
+                <h2>Encrypted Response</h2>
+                <p>Intercepted counter-transmission from Omega.</p>
+            </div>
+    </div>
+
+    <div class="footer">
+        Archive Access Level: Internal
+    </div>
+
+</div>
+
+</body>
+</html>

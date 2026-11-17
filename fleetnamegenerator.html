@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protogen Fleet Name Generator</title>
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0b0b0b;
+        color: #f0f0f0;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #ff2b2b;
+    }
+
+    select, input, button {
+        padding: 8px;
+        margin: 5px 0;
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+        border: 2px solid #ff2b2b;
+        font-size: 1em;
+    }
+
+    button {
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    button:hover {
+        background-color: #ff2b2b;
+        color: #0b0b0b;
+    }
+
+    .results {
+        margin-top: 20px;
+    }
+
+    .fleet-name {
+        margin: 5px 0;
+        padding: 5px;
+        border-bottom: 1px solid #ff2b2b;
+    }
+</style>
+</head>
+<body>
+
+<h1>Protogen Fleet Name Generator</h1>
+
+<label for="fleetType">Fleet Type:</label>
+<select id="fleetType">
+    <option value="RANDOM">Random Fleet Type</option>
+    <option value="EX">Exploration Fleet</option>
+    <option value="DF">Defense Fleet</option>
+    <option value="ST">Strategic Fleet</option>
+    <option value="GA">Grand Armada</option>
+</select>
+
+<br>
+
+<label for="fleetNumber">Number of Fleets (optional):</label>
+<input type="number" id="fleetNumber" placeholder="Random if empty" min="1" max="20">
+
+<br>
+
+<button onclick="generateFleets()">Generate Fleet Names</button>
+
+<div class="results" id="results"></div>
+
+<script>
+// Big random celestial name list
+const celestialNames = [
+  "Aether", "Altair", "Andromeda", "Antares", "Arcturus", "Aurora",
+  "Bellatrix", "Betelgeuse", "Callisto", "Capella", "Cassiopeia",
+  "Celeste", "Cygnus", "Deneb", "Electra", "Eos", "Eridani", "Galatea",
+  "Helios", "Hyperion", "Io", "Juno", "Leda", "Lyra", "Nova", "Nyx",
+  "Orion", "Phoebe", "Polaris", "Rigel", "Sirius", "Sol", "Titan",
+  "Umbriel", "Vega", "Venus", "Vesta", "Xanthe", "Zaniah"
+];
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function generateFleets() {
+    const type = document.getElementById('fleetType').value;
+    let num = parseInt(document.getElementById('fleetNumber').value);
+    if (isNaN(num) || num < 1) num = getRandomInt(5) + 1; // default 1-5 fleets
+
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = "";
+
+    for (let i = 1; i <= num; i++) {
+        const nameIndex = getRandomInt(celestialNames.length);
+        const fleetName = `${type}–${celestialNames[nameIndex]}–${i.toString().padStart(2,'0')}`;
+        const div = document.createElement('div');
+        div.className = "fleet-name";
+        div.textContent = fleetName;
+        resultsDiv.appendChild(div);
+    }
+}
+    
+    const fleetTypes = ["EX", "DF", "ST", "GA"];
+
+function generateFleets() {
+    let selectedType = document.getElementById('fleetType').value;
+    let num = parseInt(document.getElementById('fleetNumber').value);
+    if (isNaN(num) || num < 1) num = getRandomInt(5) + 1; // default 1-5 fleets
+
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = "";
+
+    for (let i = 1; i <= num; i++) {
+        // If Random type, pick a new random type for each fleet
+        let type = selectedType === "RANDOM" ? fleetTypes[getRandomInt(fleetTypes.length)] : selectedType;
+
+        const nameIndex = getRandomInt(celestialNames.length);
+        const fleetName = `${type}–${celestialNames[nameIndex]}–${i.toString().padStart(2,'0')}`;
+        const div = document.createElement('div');
+        div.className = "fleet-name";
+        div.textContent = fleetName;
+        resultsDiv.appendChild(div);
+    }
+}
+</script>
+
+</body>
+</html>

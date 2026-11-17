@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imperial Squad Registry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        background-color: #0a0a0a;
+        color: #e0e0e0;
+        font-family: "Orbitron", sans-serif;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #111;
+        border-radius: 12px;
+        border: 1px solid #ff0000;
+        box-shadow: 0 0 25px #ff0000;
+    }
+
+    h1 {
+        text-align: center;
+        color: #ff0000;
+        letter-spacing: 3px;
+        margin-bottom: 30px;
+    }
+
+    .meta {
+        margin-bottom: 25px;
+        color: #ff5555;
+        line-height: 1.8;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #1a1a1a;
+        color: #ff5555;
+        border-bottom: 2px solid #ff0000;
+    }
+
+    td {
+        background-color: #141414;
+        border-bottom: 1px solid #222;
+    }
+
+    tr:hover td {
+        background-color: #1f0000;
+    }
+
+    .status-active {
+        color: #66ff66;
+        font-weight: bold;
+    }
+
+    .status-unknown {
+        color: #ffaa00;
+        font-weight: bold;
+    }
+
+    .status-deceased {
+        color: #ff4444;
+        font-weight: bold;
+    }
+
+    .footer {
+        margin-top: 40px;
+        text-align: right;
+        color: #ff0000;
+        font-size: 0.9em;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>UNIT ROSTER — COMMANDER OMEGA</h1>
+
+    <div class="meta">
+        Division: Tactical Suppression Wing<br>
+        Commander: Omega<br>
+        Status: Archived (Pre-Defection Record)
+    </div>
+
+    <table>
+        <tr>
+            <th>Designation</th>
+            <th>Role</th>
+            <th>Specialization</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+            <td>Unit A-17 "Raze"</td>
+            <td>Heavy Assault</td>
+            <td>Frontline Breach Operations</td>
+            <td class="status-active">Active</td>
+        </tr>
+
+        <tr>
+            <td>Unit V-03 "Cipher"</td>
+            <td>Recon Specialist</td>
+            <td>Signal Interception & Surveillance</td>
+            <td class="status-unknown">Unknown</td>
+        </tr>
+
+        <tr>
+            <td>Unit K-92 "Grimm"</td>
+            <td>Shock Trooper</td>
+            <td>Urban Containment</td>
+            <td class="status-deceased">Deceased</td>
+        </tr>
+
+        <tr>
+            <td>Unit L-44 "Nyx"</td>
+            <td>Tactical Support</td>
+            <td>Drone Coordination</td>
+            <td class="status-active">Active</td>
+        </tr>
+
+        <tr>
+            <td>Unit S-11 "Vector"</td>
+            <td>Weapons Systems</td>
+            <td>Heavy Artillery Calibration</td>
+            <td class="status-active">Active</td>
+        </tr>
+
+    </table>
+
+    <div class="footer">
+        Imperial Records Division — Clearance Level 4
+    </div>
+
+</div>
+
+</body>
+</html>

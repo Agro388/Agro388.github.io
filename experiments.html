@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empire Experiments Log</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Share Tech Mono', monospace;
+        background-color: #0a0a0a;
+        color: #ff4444;
+    }
+    header {
+        background-color: #111;
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 2px solid #ff4444;
+    }
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+    .container {
+        padding: 1rem 2rem;
+    }
+    .experiment {
+        border: 1px solid #ff4444;
+        margin: 1rem 0;
+        padding: 1rem;
+        border-radius: 6px;
+        background-color: #111;
+        transition: 0.3s all ease;
+    }
+    .experiment:hover {
+        background-color: #220000;
+        box-shadow: 0 0 15px #ff4444;
+    }
+    .experiment h2 {
+        cursor: pointer;
+    }
+    .details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        margin-top: 0.5rem;
+    }
+    .experiment .details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-top: 0.5rem;
+}
+
+.experiment.active .details {
+    max-height: 600px; /* max visible area */
+    overflow-y: auto;  /* allow vertical scrolling */
+}
+    .status {
+        font-weight: bold;
+    }
+    .status.success { color: #0f0; }
+    .status.failed { color: #ff0000; }
+    .status.active { color: #ffcc00; }
+    footer {
+        margin-top: 2rem;
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.8rem;
+        border-top: 1px solid #ff4444;
+    }
+    
+    .details::-webkit-scrollbar {
+    width: 8px;
+}
+.details::-webkit-scrollbar-track {
+    background: #111;
+}
+.details::-webkit-scrollbar-thumb {
+    background: #ff4444;
+    border-radius: 4px;
+}
+.details::-webkit-scrollbar-thumb:hover {
+    background: #ff0000;
+}
+    
+    .logo img { width: 100px; filter: drop-shadow(0 0 20px red); margin-bottom: 0px; }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img class="logo" src="empire-logo.png" alt="System Logo">
+        <h1>Empire Experiments Log</h1>
+    </div>
+</header>
+
+<div class="container">
+
+<!-- Sentinel -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment QV-099 — “Sentinel”</h2>
+    <div class="details">
+        <p><strong>Former Objective:</strong> Autonomous guardians with adaptive AI.</p>
+        <p><strong>Current Objective:</strong> Transform appropriate species into <strong>Sentinels</strong>.</p>
+        <p><strong>Purpose:</strong> Military, domestic, and security applications.</p>
+        <p><strong>Status:</strong> <span class="status success">Successful</span></p>
+        <p><strong>Classification:</strong> Tier-IV Military Asset</p>
+        <p><strong>Physiology:</strong> Cybernetic skeletal reinforcement, neural visor interface, nanite-assisted healing.</p>
+        <p><strong>Psychological Stability:</strong> Stable under command hierarchy. Rebellion risk if improperly treated.</p>
+        <p><strong>Notes:</strong> Collected subjects are called <strong>Protogens</strong>.</p>
+        <p><strong>Disclaimer:</strong> Sexual activities prohibited.</p>
+    </div>
+</div>
+
+<!-- Aurora -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment CX-007 — “Aurora”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Aquatic-adapted combat units.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Reinforced lung capacity, pressure-resistant dermal plating.</p>
+        <p><strong>Failure Cause:</strong> Genetic instability under deep-sea pressure.</p>
+        <p><strong>Notes:</strong> Subjects unstable under pressure. Recurrent mutations.</p>
+    </div>
+</div>
+
+<!-- Phantom -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment ZK-233 — “Phantom”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Cloaking and stealth integration.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Optical camo layers, stealth-adapted musculature.</p>
+        <p><strong>Failure Cause:</strong> Aggression and uncontrollable behavior.</p>
+        <p><strong>Notes:</strong> Stealth systems unreliable. Subjects aggressive.</p>
+    </div>
+</div>
+
+<!-- Crimson -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment LR-451 — “Crimson”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Blood-bonded combat units.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Hemocytic augmentation, enhanced endurance.</p>
+        <p><strong>Failure Cause:</strong> Units uncontrollable. High casualty rate.</p>
+    </div>
+</div>
+
+<!-- Scythe -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment MK-110 — “Scythe”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Rapid-response assassins with reflex augmentation.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Reflex boosters, enhanced skeletal flexibility.</p>
+        <p><strong>Failure Cause:</strong> Subjects self-destructed during testing.</p>
+    </div>
+</div>
+
+<!-- Hellion -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment VT-302 — “Hellion”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Fire-adapted organisms for scorched terrain.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Heat-resistant dermis, flame-retardant tissue.</p>
+        <p><strong>Failure Cause:</strong> Containment unstable, subjects non-compliant.</p>
+    </div>
+</div>
+
+<!-- Synth -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment SY-101 — “Synth”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Fully synthetic humanoid units for integration into operations.</p>
+        <p><strong>Status:</strong> <span class="status success">Successful</span></p>
+        <p><strong>Physiology:</strong> Fully mechanical, reinforced AI core.</p>
+        <p><strong>Notes:</strong> High stability, compliant with operational protocols.</p>
+    </div>
+</div>
+
+<!-- Redshift -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment NX-900 — “Redshift”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Accelerated healing and combat recovery.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Hyper-regenerative tissue augmentation.</p>
+        <p><strong>Failure Cause:</strong> Uncontrolled regeneration. Operational use impossible.</p>
+    </div>
+</div>
+
+<!-- Obsidian -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment GL-514 — “Obsidian”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Dark-adapted reconnaissance units.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Optical enhancements, low-light vision.</p>
+        <p><strong>Failure Cause:</strong> Optical augmentation incompatible with physiology.</p>
+    </div>
+</div>
+
+<!-- Vortex -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment TR-832 — “Vortex”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> High-speed mobility enhancement for ground troops.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Enhanced musculoskeletal fibers, kinetic amplifiers.</p>
+        <p><strong>Failure Cause:</strong> Severe strain on musculoskeletal system. Testing abandoned.</p>
+    </div>
+</div>
+
+<!-- Echo -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment DS-404 — “Echo”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Neural-linked communication across planetary distances.</p>
+        <p><strong>Status:</strong> <span class="status active">Active</span></p>
+        <p><strong>Physiology:</strong> Neural augmentation implants, subspace communication nodes.</p>
+        <p><strong>Notes:</strong> Subjects report hearing voices beyond assigned channels. Investigation ongoing.</p>
+    </div>
+</div>
+
+<!-- Titan -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment HM-221 — “Titan”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Mass-enhanced labor units for construction and siege.</p>
+        <p><strong>Status:</strong> <span class="status success">Successful</span></p>
+        <p><strong>Physiology:</strong> Super-dense skeletal frame, reinforced musculature.</p>
+        <p><strong>Notes:</strong> High durability. Limited cognitive flexibility.</p>
+    </div>
+</div>
+
+<!-- Oracle -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment AR-666 — “Oracle”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Predictive processing through quantum probability modeling.</p>
+        <p><strong>Status:</strong> <span class="status failure">Failure</span></p>
+        <p><strong>Physiology:</strong> Quantum neural interface, high-speed synaptic processors.</p>
+        <p><strong>Notes:</strong> Catastrophic system failure.</p>
+    </div>
+</div>
+
+<!-- Hive -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment BN-013 — “Hive”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Shared consciousness among multiple units.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Neural linking nodes, hive cortex interface.</p>
+        <p><strong>Failure Cause:</strong> Individual identity collapse. Units became non-responsive after synchronization.</p>
+    </div>
+</div>
+
+<!-- Abyss -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment PX-777 — “Abyss”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Void-environment survival and radiation absorption.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Physiology:</strong> Radiation-resistant tissue, vacuum-adapted organs.</p>
+        <p><strong>Failure Cause:</strong> Subjects stopped responding to command signals entirely.</p>
+    </div>
+</div>
+
+<!-- Mirage -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment CL-009 — “Mirage”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Holographic projection units for psychological warfare.</p>
+        <p><strong>Status:</strong> <span class="status success">Successful</span></p>
+        <p><strong>Physiology:</strong> Projection emitters, AI-driven illusions.</p>
+        <p><strong>Notes:</strong> Indistinguishable from real personnel at mid-range distances.</p>
+    </div>
+</div>
+
+<!-- Origin -->
+<div class="experiment">
+    <h2 onclick="toggleExperiment(this)">Experiment RD-000 — “Origin”</h2>
+    <div class="details">
+        <p><strong>Objective:</strong> Recreate the Empire’s first successful enhancement protocol, the genesis of all subsequent combat and augmentation programs.</p>
+        <p><strong>Status:</strong> <span class="status failed">Failed</span></p>
+        <p><strong>Classification:</strong> Tier-V “Historical Artifact”</p>
+        <p><strong>Protocol Summary:</strong> RD-000 was the Empire’s initial attempt to engineer a super-soldier through chemical, genetic, and cybernetic augmentation. The procedure combined early cybernetic implants, neural interface nodes, and accelerated growth serum to produce highly adaptive combat subjects.</p>
+        <p><strong>Outcome:</strong></p>
+        <ul>
+            <li>A handful of first-generation subjects exhibited extraordinary reflexes, enhanced musculature, and rapid learning capabilities.</li>
+            <li>Containment issues arose as subjects’ behavior became <strong>unpredictable</strong>, with some displaying early signs of independent thought and territorial aggression.</li>
+            <li>Attempts to recreate the protocol from surviving documentation failed due to <strong>corrupted experimental data and lost neural interface schematics</strong>.</li>
+        </ul>
+        <p><strong>Impact on Future Programs:</strong></p>
+        <ul>
+            <li>RD-000 directly inspired the QV-099 “Sentinel” line, laying the foundation for Protogen development.</li>
+            <li>Psychological and physiological instability observed in RD-000 informed stricter <strong>behavioral compliance protocols</strong> for all later experiments.</li>
+            <li>A <strong>shadow file of RD-000</strong> remains archived under secure protocols, occasionally referenced for experimental theory, but any attempt at reconstruction is forbidden.</li>
+        </ul>
+        <p><strong>Notes:</strong> Subjects’ unique tissue responses and partially autonomous neural patterns hint at potential <strong>proto-sentience</strong>, though this remains classified and unconfirmed. RD-000 is considered the <strong>Empire’s forbidden origin</strong>, a blueprint that could theoretically surpass current augmentation tech if fully replicated.</p>
+        <p><strong>Disclaimer:</strong> All attempts to replicate or retrieve data are restricted to Tier-V authorized personnel only. Unauthorized interaction may result in subject exposure and containment breaches.</p>
+    </div>
+</div>
+
+</div>
+
+<footer>
+    <strong>Empire records</strong>
+</footer>
+
+<script>
+function toggleExperiment(element) {
+    const parent = element.parentElement;
+    parent.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

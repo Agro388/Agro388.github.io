@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protogen Navy Wiki</title>
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0b0b0b;
+        color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1, h2 {
+        color: #ff2b2b;
+    }
+
+    .section {
+        margin-bottom: 40px;
+    }
+
+    .flag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    position: relative; /* added so tooltips position relative to container */
+}
+
+.flag {
+    width: 200px;
+    border: 2px solid #ff2b2b;
+    cursor: pointer;
+    position: relative; /* tooltip absolute inside this */
+    transition: transform 0.2s;
+    z-index: 1; /* ensure default stacking */
+}
+
+.flag:hover {
+    transform: scale(1.05);
+    z-index: 10; /* bring hovered flag above others */
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: -5px;
+    left: 105%;
+    width: 220px;
+    background-color: #1a1a1a;
+    border: 2px solid #ff2b2b;
+    padding: 10px;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    z-index: 100; /* very high so it appears above everything */
+}
+
+    .flag:hover .tooltip {
+        display: block;
+    }
+
+    ul.ship-class {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    ul.ship-class li {
+        margin: 5px 0;
+        position: relative;
+        cursor: pointer;
+    }
+
+    ul.ship-class li:hover::after {
+        content: attr(data-info);
+        position: absolute;
+        left: 110%;
+        top: 0;
+        width: 180px;
+        background: #1a1a1a;
+        border: 2px solid #ff2b2b;
+        padding: 5px;
+        font-size: 0.8em;
+        white-space: normal;
+    }
+
+    .note {
+        color: #aaaaaa;
+        font-size: 0.85em;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Protogen Navy Wiki</h1>
+
+<div class="section">
+    <h2>Fleet Flags</h2>
+    <div class="flag-container">
+        <div class="flag">
+            <img src="peace_flag.png" alt="Peace Flag" width="100%">
+            <div class="tooltip">
+                <strong>Peace Fleet</strong><br>
+                Role: Scientific & Exploration<br>
+                Ships: 12 (Scouts: 6, Science Vessels: 6)<br>
+                Active Missions: Survey Sector X12, Research Station Theta
+            </div>
+        </div>
+        <div class="flag">
+            <img src="war_flag.png" alt="War Flag" width="100%">
+            <div class="tooltip">
+                <strong>Defense Fleet</strong><br>
+                Role: Colony Defense<br>
+                Ships: 20 (Frigates: 10, Destroyers: 10)<br>
+                Active Missions: Patrol System Beta, Rapid Response Sector 3
+            </div>
+        </div>
+        <div class="flag">
+            <img src="naval_ensign.png" alt="Naval Ensign" width="100%">
+            <div class="tooltip">
+                <strong>Strategic Fleet</strong><br>
+                Role: Heavy Combat & Operations<br>
+                Ships: 35 (Destroyers: 20, Flagships: 5, Frigates: 10)<br>
+                Active Missions: Forward Defense Line, Tactical Exercises
+            </div>
+        </div>
+        <div class="flag">
+            <img src="grand_admiral_banner.png" alt="Grand Admiral Banner" width="100%">
+            <div class="tooltip">
+                <strong>Grand Admiral</strong><br>
+                Role: Supreme Command<br>
+                Ships: 50+ (All Classes)<br>
+                Active Missions: Oversight of All Fleets, Strategic Planning
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Ship Classes</h2>
+    <ul class="ship-class">
+        <li data-info="Small fast vessels for long-range scouting missions. Examples: Orion, Lyra, Vela, Cygnus">Scout Class</li>
+        <li data-info="Medium ships for patrolling and defense. Examples: Ferrum, Titanium, Argent, Cobalt">Frigate / Patrol Class</li>
+        <li data-info="Heavy warships for offense. Examples: Sovereign, Unbound, Ascendant, Vanguard">Destroyer Class</li>
+        <li data-info="Scientific vessels equipped for research missions. Examples: Curiosity, Horizon, Parallax, Archive">Science Vessel Class</li>
+        <li data-info="Flagships with command authority. Examples: Reclamation, Omega Prime, Zenith, Genesis">Flagship Class</li>
+    </ul>
+</div>
+
+</body>
+</html>

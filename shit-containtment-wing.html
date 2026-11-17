@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imperial Ship Status — Containment Wing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    background-color: #0a0a0a;
+    font-family: "Orbitron", sans-serif;
+    color: #e0e0e0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #111;
+    border-radius: 12px;
+    border: 1px solid #ff0000;
+    box-shadow: 0 0 25px #ff0000;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .header h1 {
+    color: #ff0000;
+    letter-spacing: 3px;
+    font-size: 2.2em;
+    margin-bottom: 5px;
+  }
+
+  .header p {
+    color: #ff5555;
+    font-size: 1em;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .cell {
+    background-color: #141414;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px #ff0000;
+    position: relative;
+    transition: 0.3s ease;
+  }
+
+  .cell:hover {
+    box-shadow: 0 0 30px #ff0000;
+    transform: translateY(-5px);
+  }
+
+  .cell h2 {
+    color: #ff5555;
+    margin-bottom: 15px;
+  }
+
+  .cell p {
+    line-height: 1.6;
+  }
+
+  .status {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .status.normal {
+    color: #66ff66; /* green = normal */
+  }
+
+  .status.locked {
+    color: #ffaa00; /* yellow = restricted */
+  }
+
+  .status.critical {
+    color: #ff4444; /* red = critical */
+  }
+
+  .cell button {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  .cell button:hover {
+    background-color: #ff5555;
+  }
+
+  #releaseAll {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  #releaseAll:hover {
+    background-color: #ff5555;
+  }
+
+  /* Custom alert */
+  #customAlert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff0000;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: "Orbitron", sans-serif;
+    box-shadow: 0 0 15px #ff0000;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s ease;
+    z-index: 1000;
+  }
+
+  .footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #ff0000;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="customAlert"></div>
+
+<div class="container">
+  <div class="header">
+    <h1>IMPERIAL SHIP — CONTAINMENT WING</h1>
+    <p>Omega's Dependents & Other Captives — Real-Time Status</p>
+  </div>
+
+  <div class="status-grid">
+    <div class="cell" id="cell-nova">
+      <h2>Nova</h2>
+      <p>Containment Level: Alpha</p>
+      <p>Life Support: Stable</p>
+      <p>Monitoring: Continuous</p>
+      <div class="status normal" id="status-nova">Status: NORMAL</div>
+      <button onclick="releaseUnit('nova')">Set Free</button>
+    </div>
+
+    <div class="cell" id="cell-lyric">
+      <h2>Lyric</h2>
+      <p>Containment Level: Beta</p>
+      <p>Life Support: Stable</p>
+      <p>Monitoring: Continuous</p>
+      <div class="status normal" id="status-lyric">Status: NORMAL</div>
+      <button onclick="releaseUnit('lyric')">Set Free</button>
+    </div>
+
+    <div class="cell" id="cell-soren">
+      <h2>Soren</h2>
+      <p>Containment Level: Gamma</p>
+      <p>Life Support: Stable</p>
+      <p>Monitoring: Continuous</p>
+      <div class="status normal" id="status-soren">Status: NORMAL</div>
+      <button onclick="releaseUnit('soren')">Set Free</button>
+    </div>
+
+    <div class="cell" id="cell-riven">
+      <h2>Riven</h2>
+      <p>Containment Level: Delta</p>
+      <p>Life Support: Stable</p>
+      <p>Monitoring: Continuous</p>
+      <div class="status normal" id="status-riven">Status: NORMAL</div>
+      <button onclick="releaseUnit('riven')">Set Free</button>
+    </div>
+
+    <div class="cell" id="cell-kara">
+      <h2>Kara</h2>
+      <p>Containment Level: Epsilon</p>
+      <p>Life Support: Stable</p>
+      <p>Monitoring: Continuous</p>
+      <div class="status normal" id="status-kara">Status: NORMAL</div>
+      <button onclick="releaseUnit('kara')">Set Free</button>
+    </div>
+  </div>
+
+  <button id="releaseAll" onclick="releaseAllUnits()">RELEASE ALL</button>
+
+  <div class="footer">
+    Imperial Central Command — Ship ID: VTX-Ω-3026
+  </div>
+</div>
+
+<script>
+  function showAlert(message) {
+    const alertBox = document.getElementById('customAlert');
+    alertBox.textContent = message;
+    alertBox.style.opacity = '1';
+    setTimeout(() => {
+      alertBox.style.opacity = '0';
+    }, 2500);
+  }
+
+  function releaseUnit(unitId) {
+    const statusEl = document.getElementById(`status-${unitId}`);
+    statusEl.textContent = "Status: RELEASED";
+    statusEl.className = "status normal";
+    showAlert(`${unitId.charAt(0).toUpperCase() + unitId.slice(1)} has been set free.`);
+  }
+
+  function releaseAllUnits() {
+    const units = ['nova','lyric','soren','riven','kara'];
+    units.forEach(u => releaseUnit(u));
+    showAlert("All units have been released!");
+  }
+</script>
+
+</body>
+</html>
